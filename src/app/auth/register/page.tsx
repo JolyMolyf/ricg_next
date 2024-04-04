@@ -1,10 +1,13 @@
 'use client'
 import './registerStyled.scss';
 import React, { useCallback, useEffect, useState } from 'react';
-import TextInput from '../../common/inputs/textInpputs/TextInput';
-import Button from '../../common/inputs/button/Button';
+import TextInput from '../../components/common/inputs/textInpputs/TextInput';
+import Button from '../../components/common/inputs/button/Button';
 import authApi from '../../utils/api/AuthApi';
 import lodash from 'lodash';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '@/store/authSlice';
+import Link from 'next/link';
 
 interface IProps {}
 
@@ -16,6 +19,8 @@ interface IFormFields {
 }
 
 const page = (props:IProps) => {
+
+  const dispatch = useDispatch();
 
   const [ formFields, setFormFields ] = useState<IFormFields>({
     firstName: '',
@@ -47,16 +52,17 @@ const page = (props:IProps) => {
 
   const onSubmit = (e:any) => {
     const isValid:boolean = validateModel(formFields);
-    console.log()
     if (isValid) {
-      authApi.logInUser();
+      authApi.registerUser(formFields).then((res) => {
+          dispatch(loginUser(res))
+      });
     } 
   }
 
   return (
     <div className='form'>
       <div className='form-header'>
-        <h1>Welcome</h1>
+        <h1>Welcome!</h1>
         <p>Zarejestruj sie zeby miec dostep do swoich produktow</p>
       </div>
       <div className='form-wrapper'>
@@ -67,6 +73,11 @@ const page = (props:IProps) => {
         <TextInput className='form-wrapper-input' name='email' value={formFields.email} onParentChange={handleInputChange} error={formValidationModel?.email} label='Email'/>
         <TextInput className='form-wrapper-input' name='password' value={formFields.password}onParentChange={handleInputChange} label='Password' type='password' error={formValidationModel?.password}/>
         <Button isDisabled={!isValid} label={'Zarejestruj sie'} onParentClick={onSubmit}/>
+      </div>
+      <div className='form-wrapper-footer'>
+        <Link href='/auth/login'>
+          <p>Masz konto?</p>
+        </Link>
       </div>
     </div>
   )

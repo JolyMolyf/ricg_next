@@ -5,7 +5,7 @@ interface Props {}
 const page = () => {
   return (
     <div>
-
+        
     </div>
   )
 }

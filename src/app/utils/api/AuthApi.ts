@@ -1,15 +1,28 @@
+import axios from "axios";
 
 
 interface IAuthApi {
-    logInUser: () => void
+    logInUser: (userFields:any) => Promise<any>;
+    registerUser: (userFields: any) => Promise<any>;
 }
 
-const logInUser = () => {
+const getAllUsers = () => {
+    axios.get('')
+}
 
+const registerUser = async (userFields: any) => {
+    const username = userFields.firstName + ' ' + userFields.lastName;
+
+    return await axios.post('http://localhost:1337/api/auth/local/register', { ...userFields, username });
+}
+
+const logInUser = async (userFields:any) => {
+    return await axios.post('http://localhost:1337/api/auth/local', { identifier: userFields.email, password: userFields.password });
 }
 
 const authApi:IAuthApi = {
-    logInUser
+    logInUser,
+    registerUser
 }
 
 export default authApi;
