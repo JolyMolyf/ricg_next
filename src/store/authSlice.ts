@@ -20,6 +20,7 @@ export const authSlice = createSlice({
   reducers: {
 
     loginUser: (state, action) => {
+      localStorage.setItem('token', 'Bearer ' + action.payload.data.jwt);
       state.user = {...action.payload.data.user}
       state.authState = true;
       state.jwt = action.payload.data.jwt
@@ -29,6 +30,7 @@ export const authSlice = createSlice({
       state.user = null
       state.authState = false;
       state.jwt = null;
+      localStorage.clear();
     },
 
     setAuthState: (state, action: PayloadAction<boolean>) => {

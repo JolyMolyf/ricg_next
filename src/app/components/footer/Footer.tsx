@@ -8,7 +8,7 @@ const StyledFooter = styled.div`
     height: 100px;            
     height: 170px;
     width: 100%;
-    background-color: rgb(156, 91, 137);
+    background-color: #9a4580;
     padding-top: 20px;
     img {
         display: block;

@@ -6,6 +6,11 @@ interface IAuthApi {
     registerUser: (userFields: any) => Promise<any>;
 }
 
+const getUserByEmail = () => {
+   
+} 
+
+
 const getAllUsers = () => {
     axios.get('')
 }

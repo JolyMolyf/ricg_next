@@ -7,6 +7,7 @@ import authApi from '@/app/utils/api/AuthApi';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '@/store/authSlice';
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 interface IProps {}
 
@@ -18,6 +19,7 @@ interface ILoginFields {
 const page = (props: IProps) => {
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
     const [ validationModel, setValidationModel ] = useState<ILoginFields>({
       email: '',
@@ -52,6 +54,7 @@ const page = (props: IProps) => {
       if ( validateModel(formFields) ) {
         authApi.logInUser(formFields).then((res) => {
           dispatch(loginUser(res))
+          router.push('/user');
         });
       }
     }
