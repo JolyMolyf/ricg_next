@@ -22,7 +22,7 @@ const menuItems:any = {
   ebook: 'E-booki'
 }
 
-const page = (props:IUserPageProps) => {
+const Page = (props:IUserPageProps) => {
 
   const {  } = props;
   
@@ -90,4 +90,4 @@ const page = (props:IUserPageProps) => {
   )
 }
 
-export default page
+export default Page
