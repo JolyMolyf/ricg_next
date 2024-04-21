@@ -17,7 +17,7 @@ interface ILoginFields {
   password: string;
 }
 
-const page = (props: IProps) => {
+const Page = (props: IProps) => {
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -85,4 +85,4 @@ const page = (props: IProps) => {
   )
 }
 
-export default page
+export default Page
