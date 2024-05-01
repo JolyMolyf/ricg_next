@@ -1,0 +1,119 @@
+.ebook {
+    max-width: 1440px;
+    width: 90%;
+    margin: 0 auto;
+    &-header {
+        height: 90vh;
+        display: flex;
+        align-items: flex-start;
+        &-section {
+            width: 48vw;
+            margin: 0 15px;
+
+            &-title {
+                margin: 10px;
+                color: #9a4580;
+                font-size: 46px;
+                font-weight: 700;
+            }
+
+            &-description {
+                color: #585858;
+                border-radius: 20px;
+                padding: 20px;
+                font-size: 18px;
+                line-height: 28px;
+                max-height: 65vh;
+            }
+
+            img {
+                max-width: 650px;
+                border-radius: 20px;
+                width: 42vw;
+                height: 70vh;
+                object-fit: cover;
+
+            }
+
+            .button-wrapper {
+                width: 165px;
+                margin: 10px auto;
+                button {
+                    background-color: #9a4580;
+                    color: #fff;
+                    
+                }
+                
+            }
+        }
+    }
+
+    &-body {
+      
+        &-title {
+            text-align: center;
+            margin: 10px;
+            color: #9a4580;
+            font-size: 46px;
+            font-weight: 700;
+        }
+
+        &-parts {
+            width: 80%;
+            margin: 0 auto;
+            &-entry {
+                display: flex;
+                justify-content: space-between;
+                border-left:#9a4580 5px solid;
+                // border-bottom: #eaeaea 1px solid;
+                margin: 20px 0; 
+
+                &-title {
+                    padding-left: 2vw;
+                    width: 23vw;
+                    font-size: 34px;
+                    margin: 10px;
+                    font-weight: 700;
+                    color: #585858;
+                    display: flex;
+                    align-items: center;
+                }
+
+                &-body {
+                    font-size: 18px;
+                    line-height: 26px;
+                    width: 40vw;
+                    color: #585858;
+                    &-wrapper {
+                        display: flex;
+                        align-items: center;
+                        margin: 7px 0;
+                    }
+
+                    &-round {
+                        width: 10px;
+                        height: 10px;
+                        background-color: #E3746D;
+                        border-radius: 5px;
+                        margin: 0 10px;
+                    }
+
+                    p {
+                        margin: 0;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    &-author {
+        &-title {
+            text-align: center;
+            margin: 20px;
+            color: #9a4580;
+            font-size: 46px;
+            font-weight: 700;
+        }
+    }
+}

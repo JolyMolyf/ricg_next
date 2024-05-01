@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 const StyledFooter = styled.div`
-    position: absolute; 
+    position: relative; 
     bottom: 0;
     height: 100px;            
     height: 170px;

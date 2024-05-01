@@ -29,7 +29,7 @@ const Page = (props:IUserPageProps) => {
   const [ ebooks, setEbooks ] = useState<Array<IProduct>>();
   const [ lectures, setLectures ] = useState<Array<IProduct>>();
   const [ webinars, setWebinars ] = useState<Array<IProduct>>();
-  const [ activeMenuItem, setActiveMenuItem ] = useState('webinar');
+  const [ activeMenuItem, setActiveMenuItem ] = useState<'webinar' | 'lecture' | 'ebook'>('webinar');
 
   const [activeProductList, setActiveProductList] = useState<Array<IProduct>>();
   
@@ -44,8 +44,9 @@ const Page = (props:IUserPageProps) => {
     orderApi.getAllUserOrdersByUserEmail(user.email).then((res:any) => {      
       setEbooks(res.map((o:any) => o.products.ebooks).flat());
       setLectures(res?.map((o:any) => o.products?.lectures).flat());
-      setWebinars(lodash.uniqBy(res?.map((o:any) => o.products.webinars).flat(), 'id') as any);
-      setActiveProductList(webinars)
+      const retrievedWebinars = lodash.uniqBy(res?.map((o:any) => o.products.webinars).flat(), 'id') as any;
+      setWebinars(retrievedWebinars);
+      setActiveProductList(retrievedWebinars)
     });
 
   }, [])
@@ -77,12 +78,33 @@ const Page = (props:IUserPageProps) => {
       <div className='userPage-section'>
         <h1 className='userPage-section-header'>{ menuItems?.[activeMenuItem] }</h1>
         <div className='userPage-section-products'>
-          { activeProductList?.map((product:IProduct, index:number) => {
-            return (
-              <div key={index} className='userPage-section-products-item'>
-                <ProductCard product={product}/>
-              </div>
-            )
+          { activeProductList?.map((product:any, index:number) => {
+         
+          let mergedObject:IProduct | IWebinar | ILecture | IEbook = {
+            ...(product as any).attributes,
+            id: product.id,
+          }
+          if ( product.attributes.webinar ) {
+            mergedObject = {
+              ...mergedObject, 
+              coverImage: product.attributes.webinar.data.attributes.coverImage.data.attributes.url, 
+              title: product.attributes.webinar.data.attributes.title, 
+              description: product.attributes.webinar.data.attributes.description,
+              price: product.attributes.webinar.data.attributes.price,
+              redeemedPrice: product.attributes.webinar.data.attributes.redeemedPrice,
+              cardPoints: product.attributes.webinar.data.attributes.cardPoints,
+              date: product.attributes.date,
+              webinarId:  product.attributes.webinar.data.id
+            }
+          } else {
+            mergedObject = { ...mergedObject, ...product.attributes, coverImage: product.attributes.coverImage.data.attributes.url}
+          }
+         
+          return (
+            <div key={index} className='userPage-section-products-item'>
+              <ProductCard cardType={activeMenuItem} isSellingMode={false} product={mergedObject}/>
+            </div>
+          )
           }) }
         </div>
       </div>

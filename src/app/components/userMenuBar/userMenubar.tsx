@@ -6,8 +6,8 @@ interface IUserMenuBarProps {
   webinars: any;
   lectures: any;
   ebooks: any;
-  parentActiveMenuItem: string;
-  setParentActiveMenuItem: (item:string) => void
+  parentActiveMenuItem: any;
+  setParentActiveMenuItem: (item:any) => void
 }
 
 const UserMenubar = (props: IUserMenuBarProps) => {
@@ -30,7 +30,7 @@ const UserMenubar = (props: IUserMenuBarProps) => {
     </div>
     <div className={`userMenubar-item`} onClick={() => { handleActiveMenuItemChange('ebook') }}>
         <img className='userMenubar-item-icon' src='/images/icons/ebook_icon.png'/>
-        <p className='userMenubar-item-title'>E-Book</p>
+        <p className='userMenubar-item-title'>E-Booki</p>
         <p className='userMenubar-item-count'>{ebooks?.length}</p>
         { activeMenuItem === 'ebook' && <div className='userMenubar-item-border'/>}
     </div>

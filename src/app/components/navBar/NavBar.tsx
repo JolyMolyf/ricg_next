@@ -31,7 +31,7 @@ const NavBar = (props: INavBarProps) => {
                 <Link href={'/'} className='navbar-item-text'>Home</Link>
             </div>
             <div className={`navbar-item`}>
-                <Link href={'/products'}  className='navbar-item-text'>Sklep</Link>
+                <Link href={'/store'}  className='navbar-item-text'>Sklep</Link>
             </div>
             <div className={`navbar-item`}>
                 <p  className='navbar-item-text'>Kontakt</p>

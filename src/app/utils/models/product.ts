@@ -1,25 +1,37 @@
+import { Author } from "@/app/components/common/authorCard/AuthorCard";
+
 interface IProduct {
     id?: string; 
     title: string;
     description: string;
     price: number;
     redeemedPrice?: number;
-    coverImage: string;
+    coverImage: any;
     category: string;
     priority?: string;
 }
 
-interface IWebinar extends IProduct {
+export interface IWebinar extends IProduct {
     cardPoints: any;
     bulletPoints: any;
+    date: any;
+    webinarId: string;
 
 }
 
-interface IEbook extends IProduct {
-
+export interface IEbook extends IProduct {
+    content: any
+    parts: any
+    author: {
+        data: {
+            id: string;
+            attributes: Author
+        }
+        
+    }
 }
 
-interface ILecture extends IProduct {
+export interface ILecture extends IProduct {
 
     parts: Array<ILecturePart>;
 }

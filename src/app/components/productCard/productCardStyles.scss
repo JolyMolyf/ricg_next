@@ -1,6 +1,88 @@
 .productCard {
-    width: 350px;
-    height: 510px;
+    cursor: pointer;
+    width: 320px;
+    min-height: 520px;
     background-color: #9a4580;
     border-radius: 20px;
+
+    &-coverImage {
+       
+        width: 100%;
+        max-height: 175px;
+        height: auto;
+        border-radius: 19px 19px 0 0;
+
+    }
+
+    &-content {
+        margin: 0 auto;
+        width: 95%;
+        padding: 2px 10px;
+        color: #fff;
+
+        &-header {
+       
+            width: 95%;
+            margin: 0 auto;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 40px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            &-date { 
+
+                font-size: 12px;
+                font-weight: 400;
+                
+            }
+            p {
+                margin: 0;
+            }
+        }
+
+        &-point {
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2px auto;
+            width: 95%;
+
+            &-circle {
+                margin-top: 2.5px;
+                border-radius: 6px;
+                width: 12px !important;
+                height: 12px;
+                background-color: #E3746D;
+            } 
+            p {
+                font-size: 14px;
+                line-height: 18px;
+                width: 90%;
+                margin: 7px 0;
+            }
+        }
+    }
+
+    &-footer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        padding: 10px;
+        color: #fff; 
+        
+        p {
+             margin: 5px 0;
+        }
+    }
 }

@@ -1,13 +1,23 @@
 .button-wrapper {
     button {
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
         border: 0;
         background-color: #fff;
-        height: 30px;
-        width: 145px;
+        height: 35px;
+        width: 165px;
         border-radius: 20px;
         color: #9a4580;
         font-size: 16px;
         margin: 10px 0;
+    }
+
+    &:hover {
+        button {
+            scale: 1.02;
+            background-color: #eaeaea;
+    }
+        
     }
 }
 
