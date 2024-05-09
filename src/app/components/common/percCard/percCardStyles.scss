@@ -1,0 +1,32 @@
+.percCard {
+    width: 550px;
+    height: 450px;
+    background-color: #9a4580;
+    color: #fff;
+    border-radius: 20px;
+    img {
+        border-radius: 20px 20px 0 0;
+        object-fit: cover;
+        width: 550px;
+        height: 225px;
+    }
+
+    &-text {
+        padding: 10px;
+        &-header {
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 15px 0;
+            line-height: 25px;
+        }
+
+        &-body {
+            font-size: 16px;
+            line-height: 22px;
+
+        }
+
+
+    }
+}

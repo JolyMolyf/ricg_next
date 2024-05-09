@@ -1,0 +1,20 @@
+.specialitySection {
+    &-title {
+        font-size: 30px;
+        text-align: center;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #4B4B4B;
+    }
+
+    &-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center; 
+        &-perc {
+            margin: 10px;
+        }
+    }
+}

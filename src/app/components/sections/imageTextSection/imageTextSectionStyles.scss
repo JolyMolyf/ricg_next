@@ -1,0 +1,109 @@
+.imagetextSection {
+    width: 95%;
+    max-width: 1440px;
+    margin: 50px auto;
+
+    @media only screen and (max-width: 480px) {
+        margin: 15px auto;
+        width: 100%;
+    }
+
+    &-header {
+        @media only screen and (min-width: 900px) {
+        }
+        text-align: center;
+    }
+
+    &-reverseWrapper {
+        padding: 25px 5px !important;
+        flex-direction: row-reverse !important;
+        background-color: #fae1e04d;
+        @media only screen and (max-width: 480px) {
+            flex-direction: column-reverse !important;
+            align-items: center;
+        }
+
+        @media only screen and (min-width: 481px) and (max-width: 768px) {
+            flex-direction: column-reverse !important;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &-button  {
+        margin-top: 30px;
+
+        @media only screen and (max-width: 480px) {
+            display: none;
+        }
+
+        @media only screen and (min-width: 481px) and (max-width: 768px) {
+            display: none;
+        }
+    }
+    &-wrapper {
+        border-radius: 20px;
+        padding: 0px 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        @media only screen and (max-width: 480px) {
+            width: 90%;
+            margin: 0 auto;
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+
+        @media only screen and (min-width: 481px) and (max-width: 768px) {
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            align-items: center;
+
+        }
+        &-text {
+
+            @media only screen and (max-width: 480px) {
+                margin-top: 15px;
+                width: 95%;
+             
+
+            }
+
+            @media only screen and (min-width: 481px) and (max-width: 768px) {
+                width: 100%;
+            }
+            p {
+                @media only screen and (max-width: 480px) {
+                    font-size: 16px !important;
+                    width: 95%;
+                }
+                
+            }
+
+            width: 40%;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        &-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            @media only screen and (max-width: 480px) {
+                width: 70%;
+            }
+            max-width: 700px;
+            overflow: hidden;
+            width: 30%;
+            object-fit: cover;
+            img {
+                width: 80%;
+            }
+        }
+    }
+}
