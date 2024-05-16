@@ -11,6 +11,7 @@ import UserCard from '../components/userCard/UserCard';
 import UserMenubar from '../components/userMenuBar/userMenubar';
 import { orderApi } from '../utils/api/OrderApi';
 import ProductCard from '../components/productCard/ProductCard';
+import { IWebinar, ILecture, IEbook, IProduct } from '../utils/models/product';
 
 interface IUserPageProps {
 

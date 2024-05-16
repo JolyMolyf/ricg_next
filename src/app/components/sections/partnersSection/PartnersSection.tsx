@@ -25,7 +25,7 @@ const StyledBrandWrapper = styled.div`
     img {
         max-width: 100px;
     }
-    
+
 `
 
 const PartnersSection = () => {
@@ -44,7 +44,7 @@ const PartnersSection = () => {
                 { partners.map((partner:any, index:number) => {
                     return(
                         <StyledBrandWrapper key={index}>
-                            <img src={partner?.attributes?.partnerImage.data.attributes.url}></img> 
+                            <img src={partner?.attributes?.image?.data.attributes.url}></img> 
                         </StyledBrandWrapper>
                     )
                 }) }

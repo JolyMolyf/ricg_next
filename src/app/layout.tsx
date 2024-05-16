@@ -28,8 +28,10 @@ export default function RootLayout({
         <SpeedInsights/>
         <ReduxProvider>
           <NavBar/>
-          {children}
-          {/* <Footer/> */}
+          <div style={{ minHeight: '78vh' }}>
+            {children}
+          </div>
+          <Footer/>
         </ReduxProvider>
       </body>
     </html>

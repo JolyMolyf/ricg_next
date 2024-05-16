@@ -3,6 +3,7 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import { authReducer } from "@/store/authSlice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { cartReducer } from "./cartSlice";
 
 const createNoopStorage = () => {
   return {
@@ -29,10 +30,18 @@ const authPersistConfig = {
   whitelist: ["authState", "user", "jwt"],
 };
 
-const persistedReducer = persistReducer(authPersistConfig, authReducer);
+const cartPersistConfig = {
+  key: "cart",
+  storage: storage,
+  whitelist: ["products"],
+}
+
+const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
+const cartPersistedReducer =  persistReducer(cartPersistConfig, cartReducer)
 
 const rootReducer = combineReducers({
-  auth: persistedReducer,
+  auth: authPersistedReducer,
+  cart: cartPersistedReducer
 });
 
 export const store = configureStore({

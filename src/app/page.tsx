@@ -9,6 +9,7 @@ import ImageTextSectionApi from "./utils/api/ImageTextSectionApi";
 import AuthorSection from "./components/sections/authorSection/AuthorSection";
 import SpecialitySection from "./components/sections/specialitySection/SpecialitySection";
 import TiktokVidsSection from "./components/sections/tiktokSections/TiktokSection";
+import PartnersSection from "./components/sections/partnersSection/PartnersSection";
 
 
 export default function Home() {
@@ -45,8 +46,7 @@ export default function Home() {
         }) }
       <AuthorSection/>
       <SpecialitySection/>
-      {/* <TiktokVidsSection/> */}
-      
+      <PartnersSection/>
       </div>
     </div>
   );

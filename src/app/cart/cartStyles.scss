@@ -1,0 +1,38 @@
+.cart {
+    max-width: 1440px;
+    width: 95%;
+    margin: 10px auto;
+  
+    &-header {
+        font-size: 40px;
+        font-weight: 700;
+        color: #6a6a6a;
+    }
+
+    &-container {
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        &-items {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 60vw;
+        }
+    
+        &-summary {
+            min-width: 320px;
+            width: 30vw;
+            height: 320px;
+            background-color: #9a4580;
+            border-radius: 20px;
+        }
+    }
+
+    
+
+ }

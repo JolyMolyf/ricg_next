@@ -1,6 +1,6 @@
 import { Author } from "@/app/components/common/authorCard/AuthorCard";
 
-interface IProduct {
+export interface IProduct {
     id?: string; 
     title: string;
     description: string;
@@ -16,6 +16,8 @@ export interface IWebinar extends IProduct {
     bulletPoints: any;
     date: any;
     webinarId: string;
+    event_dates: {data: Array<any>};
+    selectedDate: any;
 
 }
 

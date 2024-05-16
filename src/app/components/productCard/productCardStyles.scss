@@ -1,7 +1,7 @@
 .productCard {
     cursor: pointer;
+    height: 570px;
     width: 320px;
-    min-height: 520px;
     background-color: #9a4580;
     border-radius: 20px;
 
@@ -27,7 +27,7 @@
             margin-top: 5px;
             margin-bottom: 10px;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 600;
             line-height: 40px;
             display: flex;
             flex-direction: row;
@@ -67,7 +67,33 @@
                 line-height: 18px;
                 width: 90%;
                 margin: 7px 0;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 10;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
+        }
+    }
+    &-dateSelector {
+        width: 90%;
+        margin: 0 auto;
+        color: #fff;
+        height: 30px;
+        border: 2px solid #fff;
+        border-radius: 16px;
+        padding: 5px;
+        line-height: 30px;
+        position: relative;
+        font-weight: 700;
+
+        .Dropdown-menu {
+            margin: 0 auto;
+            width: 90%;
+            z-index: 1000000;
+            background-color: #6a6a6a;
+            padding: 5px;
+            border-radius: 16px;
         }
     }
 
