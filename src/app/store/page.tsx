@@ -6,6 +6,7 @@ import { IEbook, ILecture, IWebinar } from '../utils/models/product'
 import { productApi } from '../utils/api/ProductApi'
 import ProductCard from '../components/productCard/ProductCard';
 import './storeStyles.scss';
+import { useRouter } from 'next/navigation'
 
 interface Props {}
 
@@ -14,8 +15,10 @@ const page = () => {
   const [ ebooks, setEbooks ] = useState<Array<IEbook>>([]);
   const [ lectures, setLectures ] = useState<Array<ILecture>>([]);
   const [ webinars, setWebinars ] = useState<Array<IWebinar>>([]);
-  const [ activeMenuItem, setActiveMenuItem ] = useState<string>('lecture');
+  const [ activeMenuItem, setActiveMenuItem ] = useState<any>('lecture');
   const [activeProductList, setActiveProductList] = useState<Array<any>>();
+  
+  const router = useRouter();
 
   const handleActiveMenuItemChange = (menuItem: string) => {
     setActiveMenuItem(menuItem);
@@ -37,18 +40,35 @@ const page = () => {
   }, [])
 
   useEffect(() => {
-    if (activeMenuItem === 'webinar') {
-      setActiveProductList(webinars);
-    } 
-
-    if ( activeMenuItem === 'lecture' ) {
-      setActiveProductList(lectures);
-    }
-
-    if (activeMenuItem === 'ebook') {
-      setActiveProductList(ebooks);
+    switch (activeMenuItem) {
+      case 'webinar': 
+        setActiveProductList(webinars);
+        break;
+      case 'lecture': 
+        setActiveProductList(lectures);
+        break;
+      case 'ebook':
+        setActiveProductList(ebooks);
+        break;
+      default: 
+        setActiveProductList(webinars);
     }
   }, [activeMenuItem])
+
+  const handleCardClick = (product:any, selectedCardDate?:any) => {
+    switch (activeMenuItem) {
+      case 'webinar': 
+        router.push(`/store/product/webinar/${selectedCardDate.value}/${product.id}`);
+        break;
+      case 'lecture': 
+        router.push( `/store/product/lecture/${product.id}}`);
+        break;
+      case 'ebook':
+        router.push(`/store/product/ebook/${product.id}`);
+        break;
+
+    }
+  }
 
   return (
     <div  className='store'>
@@ -60,7 +80,7 @@ const page = () => {
             <div key={key} onClick={() => {
               
             }}>
-              <ProductCard product={{id: product.id, ...product?.attributes}} isSellingMode={true} cardType={'lecture'}/>
+              <ProductCard onClick={handleCardClick} product={{id: product.id, ...product?.attributes}} isSellingMode={true} cardType={activeMenuItem}/>
             </div>
           )
         })  }

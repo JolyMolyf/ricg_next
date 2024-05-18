@@ -24,7 +24,7 @@ const EbookPageWrapper = () => {
 
   return (
     <div className=''>
-        <EbookPage/>
+        <EbookPage isSelling={true}/>
     </div>
   )
 }

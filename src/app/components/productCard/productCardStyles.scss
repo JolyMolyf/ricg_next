@@ -19,6 +19,7 @@
         width: 95%;
         padding: 2px 10px;
         color: #fff;
+        height: 280px;
 
         &-header {
        
@@ -79,13 +80,14 @@
         width: 90%;
         margin: 0 auto;
         color: #fff;
-        height: 30px;
+        height: 25px;
         border: 2px solid #fff;
         border-radius: 16px;
         padding: 5px;
-        line-height: 30px;
+        line-height: 25px;
         position: relative;
         font-weight: 700;
+        font-size: 14px;
 
         .Dropdown-menu {
             margin: 0 auto;

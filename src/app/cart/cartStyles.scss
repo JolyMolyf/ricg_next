@@ -25,11 +25,45 @@
         }
     
         &-summary {
-            min-width: 320px;
-            width: 30vw;
-            height: 320px;
+            position: relative;
+            padding: 20px;
+            width: 320px;
+            height: 185px;
             background-color: #9a4580;
             border-radius: 20px;
+
+            &-title {
+                width: 100%;
+                text-align: left;
+                margin: 0;
+                font-size: 26px;
+                font-weight: 700;
+                color: #fff;
+                text-align: center;
+            }
+
+            &-action {
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                width: 165px;
+                margin: 0 auto;
+            }
+
+            &-body {
+                width: 100%;
+                text-align: center;
+                color: #fff;
+
+                p:first-child  {
+                    font-weight: 700;
+                   font-size: 22px;
+                   margin-bottom: 0;
+                }
+            }
+
+
         }
     }
 

@@ -12,6 +12,7 @@ import UserMenubar from '../components/userMenuBar/userMenubar';
 import { orderApi } from '../utils/api/OrderApi';
 import ProductCard from '../components/productCard/ProductCard';
 import { IWebinar, ILecture, IEbook, IProduct } from '../utils/models/product';
+import { useRouter } from 'next/navigation'
 
 interface IUserPageProps {
 
@@ -26,6 +27,8 @@ const menuItems:any = {
 const Page = (props:IUserPageProps) => {
 
   const {  } = props;
+
+  const router = useRouter();
   
   const [ ebooks, setEbooks ] = useState<Array<IProduct>>();
   const [ lectures, setLectures ] = useState<Array<IProduct>>();
@@ -37,6 +40,7 @@ const Page = (props:IUserPageProps) => {
   const user = useSelector((state:RootState) => state.auth.user);
   const isAuthenticated = useSelector((state:RootState) => state.auth.authState )
 
+  
   useEffect(() => { 
     if (!isAuthenticated || !user) {
       redirect('/auth/login')
@@ -65,6 +69,22 @@ const Page = (props:IUserPageProps) => {
       setActiveProductList(ebooks);
     }
   }, [activeMenuItem])
+
+  const onProductCardClick = (product:IProduct, selectedDate: any) => {
+
+  switch (activeMenuItem) {
+        case 'webinar': 
+          router.push(`/user/product/webinar/${selectedDate.value}/${product.id}`);
+          break;
+        case 'lecture': 
+          router.push( `/user/product/lecture/${product.id}}`);
+          break;
+        case 'ebook':
+          router.push(`/user/product/ebook/${product.id}`);
+          break;
+
+      }
+  }
 
   return (
     <div className='userPage'>
@@ -103,7 +123,7 @@ const Page = (props:IUserPageProps) => {
          
           return (
             <div key={index} className='userPage-section-products-item'>
-              <ProductCard cardType={activeMenuItem} isSellingMode={false} product={mergedObject}/>
+              <ProductCard onClick={onProductCardClick} cardType={activeMenuItem} isSellingMode={false} product={mergedObject}/>
             </div>
           )
           }) }

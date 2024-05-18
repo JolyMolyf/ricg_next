@@ -11,12 +11,13 @@ import Dropdown from 'react-dropdown';
 interface IProps {
     product: IWebinar | ILecture | IEbook | IProduct;
     isSellingMode: boolean;
-    cardType: 'webinar' |  'lecture' | 'ebook'
+    cardType: 'webinar' |  'lecture' | 'ebook';
+    onClick: (product:any, selectedCardDate:any) => void;
 }
 
 const ProductCard = (props:IProps) => {
     
-    const { product, isSellingMode, cardType } = props;
+    const { product, isSellingMode, cardType, onClick } = props;
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -44,37 +45,7 @@ const ProductCard = (props:IProps) => {
     const handleCardClick = (e:any) => {
         e.stopPropagation();
         e.preventDefault();
-        if ( isSellingMode ) {
-            switch (cardType) {
-                case 'webinar': 
-                    router.push(`/store/product/webinar/${(product as IWebinar).id}/${(product as IWebinar).webinarId}`);
-                    break;
-                case 'ebook': 
-                    router.push(`/store/product/ebook/${product.id}`);
-                    break;
-                case 'lecture': 
-                    router.push(`/store/product/lecture/${product.id}`);
-                    break;
-                default: 
-                    router.push('/')
-            }
-            
-        } else {
-            switch (cardType) {
-                case 'webinar': 
-                    router.push(`/user/product/webinar/${(product as IWebinar).id}/${(product as IWebinar).webinarId}`);
-                    break;
-                case 'ebook': 
-                    router.push(`/user/product/ebook/${product.id}`);
-                    break;
-                case 'lecture': 
-                    router.push(`/user/product/lecture/${product.id}`);
-                    break;
-                default: 
-                    router.push('/')
-            }
-        }
-
+        onClick(product, selectedCardDate);
     }
 
     const handleDropDownChange = (e:any) => {
