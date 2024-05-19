@@ -3,7 +3,6 @@
     width: 90%;
     margin: 0 auto;
     &-header {
-        height: 90vh;
         display: flex;
         align-items: flex-start;
         &-section {
@@ -24,13 +23,31 @@
                 font-size: 18px;
                 line-height: 28px;
                 max-height: 65vh;
+
+                &-action {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    &-price {
+                        p {
+                            margin: 5px 2.5px;
+                        }
+                        color: #7d7d7d !important;
+                        .main-price {
+                            font-size: 24px;
+                            font-weight: 700;
+                        }
+                    }
+                }
             }
+
+              
 
             img {
                 max-width: 650px;
                 border-radius: 20px;
-                width: 42vw;
-                height: 70vh;
+                height: 60vh;
                 object-fit: cover;
 
             }

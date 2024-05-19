@@ -18,7 +18,7 @@ const AuthorCard = (props:IAuthorCardProps) => {
     return (
         <div className='authorCard'>
             <div className='authorCard-image'>
-                <img src={author?.image ?? author?.image?.data?.attributes?.url}></img>
+                <img src={author?.image?.data?.attributes?.url ?? author?.image }></img>
             </div>
             <div className='authorCard-name'>
                 <p>{ author?.name + ' ' + author?.surname }</p>

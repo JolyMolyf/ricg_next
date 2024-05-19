@@ -9,6 +9,14 @@ export interface IProduct {
     coverImage: any;
     category: string;
     priority?: string;
+    audience: string;
+    author: {
+        data: {
+            id: string;
+            attributes: Author
+        }
+        
+    }
 }
 
 export interface IWebinar extends IProduct {
@@ -18,19 +26,15 @@ export interface IWebinar extends IProduct {
     webinarId: string;
     event_dates: {data: Array<any>};
     selectedDate: any;
+    url: string;
 
 }
 
 export interface IEbook extends IProduct {
     content: any
     parts: any
-    author: {
-        data: {
-            id: string;
-            attributes: Author
-        }
-        
-    }
+  
+   
 }
 
 export interface ILecture extends IProduct {

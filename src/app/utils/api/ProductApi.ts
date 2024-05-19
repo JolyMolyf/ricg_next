@@ -24,6 +24,8 @@ const getAllWebinars = async () => {
     return webinars;
 }
 
+
+
 interface ProductApi {
     getAllLectures: () => Promise<Array<ILecture>>;
     getAllEbooks: () => Promise<Array<IEbook>>;

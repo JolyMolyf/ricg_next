@@ -7,11 +7,19 @@ const getWebinarByEventDateIdAndWebinarId = async (webinarId:string, eventDateId
     })
 }
 
+const getWebinarById = async (webinarId:string) => {
+    return axiosInterceptorInstance.get(`http://localhost:1337/api/webinars/${webinarId}?populate[0]=author.image&populate[1]=event_dates&populate[2]=coverImage`).then((res) => {
+        return { id: res.data.data.id, ...res.data.data.attributes };
+    });
+}
+
 interface IWebinarApi {
+    getWebinarById: (webianrId:string) => Promise<IWebinar>
     getWebinarByEventDateIdAndWebinarId: (webinarId: string, eventDateId: string) => Promise<IWebinar>
 }
 
 const WebinarApi:IWebinarApi = {
+    getWebinarById,
     getWebinarByEventDateIdAndWebinarId
 }
 
