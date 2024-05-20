@@ -1,6 +1,6 @@
 .userCard {
     width: 250px;
-    height: 200px;
+    height: 230px;
     background-color: #9a4580;
     border-radius: 20px;
     padding: 10px;
@@ -35,5 +35,13 @@
                 font-weight: 200;
             }
         }
+    }
+
+    &-actions {
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

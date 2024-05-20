@@ -54,7 +54,7 @@ const Page = (props:IUserPageProps) => {
       setActiveProductList(retrievedWebinars)
     });
 
-  }, [])
+  }, [user])
 
   useEffect(() => {
     if (activeMenuItem === 'webinar') {

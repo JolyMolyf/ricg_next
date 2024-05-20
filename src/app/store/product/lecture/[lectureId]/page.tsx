@@ -5,10 +5,10 @@ import React from 'react'
 
 interface Props {}
 
-const page = () => {
+const LecturePageWrapper = () => {
   return <div>
     <LecutrePage isSelling={true}/>
   </div>
 }
 
-export default page
+export default LecturePageWrapper

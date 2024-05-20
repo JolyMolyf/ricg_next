@@ -1,6 +1,9 @@
 import IUser from '@/app/utils/models/User'
 import React from 'react'
 import './userCardStyles.scss';
+import Button from '../common/inputs/button/Button';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '@/store/authSlice';
 
 interface IUserCardProps {
     user: IUser | null;
@@ -8,6 +11,13 @@ interface IUserCardProps {
 
 const UserCard = (props: IUserCardProps) => {
     const { user } = props;
+
+    const dispatch = useDispatch();
+
+    const handleLogOut = () => {
+        dispatch(logoutUser());
+    }
+    
 
   return ( 
     <div className='userCard'>
@@ -42,6 +52,9 @@ const UserCard = (props: IUserCardProps) => {
                     In progress
                 </div>
             </div>
+        </div>
+        <div className='userCard-actions'>
+            { user && <Button onParentClick={handleLogOut} label='Log out'/>}
         </div>
     </div>
   )

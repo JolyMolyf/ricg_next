@@ -61,7 +61,7 @@ const page = () => {
         router.push(`/store/product/webinar/${selectedCardDate.value}/${product.id}`);
         break;
       case 'lecture': 
-        router.push( `/store/product/lecture/${product.id}}`);
+        router.push( `/store/product/lecture/${product.id}`);
         break;
       case 'ebook':
         router.push(`/store/product/ebook/${product.id}`);
