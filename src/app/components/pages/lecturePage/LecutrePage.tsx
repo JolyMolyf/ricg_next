@@ -1,7 +1,7 @@
 'use client';
 import { productApi } from '@/app/utils/api/ProductApi';
 import { ILecture } from '@/app/utils/models/product';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Button from '../../common/inputs/button/Button';
 import PriceDisplay from '../../common/priceDisplay/PriceDisplay';
@@ -11,7 +11,6 @@ import ImageTextSection from '../../sections/imageTextSection/ImageTextSection';
 import ProductPart from '../../productPart/ProductPart';
 import './lecturePageStyles.scss';
 import AuthorCard from '../../common/authorCard/AuthorCard';
-
 interface Props {
   isSelling:boolean
 }
@@ -23,6 +22,8 @@ const LecutrePage = (props:Props) => {
   
   const params = useParams();
   const dispatch = useDispatch();
+  const router = useRouter()
+  const pathName = usePathname();
 
   useEffect(() => {
     productApi.getLectureById(params.lectureId as string).then((lecture) => {
@@ -34,8 +35,6 @@ const LecutrePage = (props:Props) => {
     dispatch(addToCart({...lecture}))
   }
 
-  console.log(lecture?.lecture_parts);
-
   return (
     <div className='lecture'>
       <div className='lecture-header section'>
@@ -46,7 +45,7 @@ const LecutrePage = (props:Props) => {
           <div>
             <p className='lecture-header-section-title'>{lecture?.title}</p>
             <p className='lecture-header-section-description'>{ lecture?.description }</p>
-            { !isSelling && <Button label='Zacznij'  onParentClick={() => { window.location.assign( lecture?.link || '') }}/>}
+            { !isSelling && <Button label='Zacznij szkolenie'  onParentClick={() => { router.push(`${pathName}/playback`) }}/>}
             { isSelling && (<div className='lecture-header-section-description-action'>
                 <PriceDisplay className='lecture-header-section-description-action-price' price={lecture?.price} redeemedPrice={lecture?.redeemedPrice} />
                 <Button onParentClick={handleAddToCart} label='Dodaj do koszyka' />
@@ -62,7 +61,6 @@ const LecutrePage = (props:Props) => {
       <div className='lecture-parts section'>
             <p className='main-title'> Z czego sklada sie szkolenie</p>
             { lecture?.lecture_parts?.data?.map((part, index: number) => {
-              console.log(part);
               return (
                 <ProductPart title={part?.attributes.title} key={index} parts={[part?.attributes.description || '']} />
               )

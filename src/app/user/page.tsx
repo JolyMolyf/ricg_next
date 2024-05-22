@@ -13,6 +13,7 @@ import { orderApi } from '../utils/api/OrderApi';
 import ProductCard from '../components/productCard/ProductCard';
 import { IWebinar, ILecture, IEbook, IProduct } from '../utils/models/product';
 import { useRouter } from 'next/navigation'
+import CartPopup from '../components/popups/cartPopup/CartPopup';
 
 interface IUserPageProps {
 
@@ -72,12 +73,13 @@ const Page = (props:IUserPageProps) => {
 
   const onProductCardClick = (product:IProduct, selectedDate: any) => {
 
+  console.log(product);
   switch (activeMenuItem) {
         case 'webinar': 
-          router.push(`/user/product/webinar/${selectedDate.value}/${product.id}`);
+          router.push(`/user/product/webinar/${product.id}/${(product as any)?.webinarId}`);
           break;
         case 'lecture': 
-          router.push( `/user/product/lecture/${product.id}}`);
+          router.push( `/user/product/lecture/${product.id}`);
           break;
         case 'ebook':
           router.push(`/user/product/ebook/${product.id}`);

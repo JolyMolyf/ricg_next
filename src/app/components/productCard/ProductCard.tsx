@@ -7,6 +7,7 @@ import { IWebinar, ILecture, IEbook, IProduct } from '../../utils/models/product
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/store/cartSlice';
 import Dropdown from 'react-dropdown';
+import CartPopup from '../popups/cartPopup/CartPopup';
 
 interface IProps {
     product: IWebinar | ILecture | IEbook | IProduct;
@@ -17,17 +18,19 @@ interface IProps {
 
 const ProductCard = (props:IProps) => {
     
-    const { product, isSellingMode, cardType, onClick } = props;
+    const { product, isSellingMode, onClick } = props;
 
     const dispatch = useDispatch();
     const router = useRouter();
 
     const [ selectedCardDate, setSelectedCardDate ] = useState<any>();
-    const [availableDates, setAvailableDates] = useState<Array<any>>([])
+    const [availableDates, setAvailableDates] = useState<Array<any>>([]);
+    const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
 
     const handleButtonClick = (e:any) => {
         if (isSellingMode) {
             if (product) {
+                setIsModalOpen(true);
                 dispatch(addToCart({...product, selectedDate: selectedCardDate}))
             }
         }
@@ -45,16 +48,21 @@ const ProductCard = (props:IProps) => {
     const handleCardClick = (e:any) => {
         e.stopPropagation();
         e.preventDefault();
-        onClick(product, selectedCardDate);
+        onClick?.(product, selectedCardDate);
+       
     }
 
     const handleDropDownChange = (e:any) => {
         setSelectedCardDate(e);
-        
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
     }
 
     return (
         <div className='productCard' onClick={handleCardClick}>
+            {isModalOpen && <CartPopup handleClose={handleCloseModal} title={product?.title}/>}
             <img  onClick={handleCardClick} className='productCard-coverImage' src={product?.coverImage?.data?.attributes?.url?? product.coverImage} />
             <div  className='productCard-content'>
                 <div className='productCard-content-header'  onClick={handleCardClick}>
