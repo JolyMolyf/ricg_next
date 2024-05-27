@@ -7,16 +7,22 @@ import { useSelector } from 'react-redux'
 import HorizontalProductCard from '../components/horizontalProductCard/HorizontalProductCard';
 import './cartStyles.scss';
 import Button from '../components/common/inputs/button/Button';
+import axiosInterceptorInstance from '@/axios/axiosInterceptors';
+import { loadStripe } from '@stripe/stripe-js';
+import { orderApi } from '../utils/api/OrderApi';
 
 interface Props {
 
 }
 
+const stripePromice = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+
 const page = (props:Props) => {
   
   const items: Array<any> = useSelector((state:RootState) => state.cart.products);
+  const user = useSelector((state:RootState) => state.auth.user);
   const [cartSum, setCartSum] = useState<number>(0)
-
+  
   useEffect(() => {
     const tmpSum:number = items.reduce((acc, cur) => {
         return acc + ( (cur?.redeemedPrice ?? cur?.price) )
@@ -24,8 +30,16 @@ const page = (props:Props) => {
     setCartSum(tmpSum)
 }, [items])
 
-  const handlePayment = () => {
-    console.log('Proceed to payment');
+  const handlePayment = async () => {
+    axiosInterceptorInstance.post('http://localhost:3000/api/payments', {
+      products: items,
+      user
+     }).then(async (session) => {
+        const stripe = await stripePromice;
+        const { error } = await stripe!.redirectToCheckout({
+          sessionId: session.data.sessionId,
+        });
+     })
   }
 
   return (

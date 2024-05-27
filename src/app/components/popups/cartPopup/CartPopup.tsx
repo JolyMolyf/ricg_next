@@ -15,12 +15,10 @@ const CartPopup = (props:Props) => {
     const router = useRouter();
 
     const handleModalClose = () => {
-        console.log('close');
         handleClose();
     }
 
     const handleGoToCart = () => {
-        console.log('go to cart');
         router.push('/cart');
     }
 

@@ -18,7 +18,6 @@ export const cartSlice = createSlice({
         removeFromCart: (state, action) => {
             const filteredProducts = state.products.filter((product ) => {
                 if (product?.selectedDate?.value) {
-                    console.log('Payload date: ', action.payload.eventDateId, 'Product event date: ', product.selectedDate.value );
                     if (product.id === action.payload.productId ) {
                         if ( product.selectedDate.value === action.payload.eventDateId ) {
                             return false
@@ -32,7 +31,6 @@ export const cartSlice = createSlice({
                 
             })
 
-            console.log(filteredProducts);
             state.products = [...filteredProducts]
         }
     }

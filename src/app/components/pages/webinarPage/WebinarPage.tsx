@@ -35,8 +35,6 @@ const WebinarPage = (props: Props) => {
   const [ selectedCardDate, setSelectedCardDate ] = useState<any>();
   const [ availableDates, setAvailableDates ] = useState<Array<any>>([]);
 
-  console.log(product);
-
   useEffect(() => {
     if (!isSelling && (!isAuthenticated || !user)) {
       redirect('/auth/login');

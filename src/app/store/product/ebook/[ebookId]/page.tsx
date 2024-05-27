@@ -20,8 +20,6 @@ const EbookPageWrapper = () => {
     })
   }, [])
 
-  console.log(ebook?.author);
-
   return (
     <div className=''>
         <EbookPage isSelling={true}/>
@@ -29,4 +27,4 @@ const EbookPageWrapper = () => {
   )
 }
 
-export default EbookPageWrapper
+export default EbookPageWrapper;

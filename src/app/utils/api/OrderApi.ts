@@ -1,7 +1,9 @@
 import axiosInterceptorInstance from "@/axios/axiosInterceptors"
+import axios from "axios";
 
 interface IOrderApi {
-    getAllUserOrdersByUserEmail: (email:string) => any
+    getAllUserOrdersByUserEmail: (email:string) => any;
+    createOrder: (user: string, price: number, event_dates?: Array<string>, lectures?: Array<string>, ebooks?: Array<string>) => any;
 }
 
 const getUserOrderById = async (orderId:string) => {
@@ -38,6 +40,23 @@ const getAllUserOrdersByUserEmail = async (userMail:string) => {
     })
 }
 
+const createOrder = async (user: string, price: number, event_dates?: Array<string>, lectures?: Array<string>, ebooks?: Array<string>) => {
+    const body = { 
+        data: {
+            price,
+            user,
+            event_dates,
+            lectures,
+            ebooks,
+           
+        }
+    }
+
+    const result = await axios.post('http://localhost:1337/api/orders', body);
+    return result;
+}
+
 export const orderApi: IOrderApi = {
-    getAllUserOrdersByUserEmail
+    getAllUserOrdersByUserEmail,
+    createOrder
 }

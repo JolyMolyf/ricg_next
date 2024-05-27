@@ -13,7 +13,6 @@ export function middleware(request: NextRequest) {
         request.cookies.delete("currentUser");
         const response = NextResponse.redirect(new URL("/login", request.url));
         response.cookies.delete("currentUser");
-        console.log('Here');
         return response;
     }
 

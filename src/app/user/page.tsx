@@ -73,7 +73,6 @@ const Page = (props:IUserPageProps) => {
 
   const onProductCardClick = (product:IProduct, selectedDate: any) => {
 
-  console.log(product);
   switch (activeMenuItem) {
         case 'webinar': 
           router.push(`/user/product/webinar/${product.id}/${(product as any)?.webinarId}`);

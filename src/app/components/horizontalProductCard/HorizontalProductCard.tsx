@@ -18,7 +18,6 @@ const HorizontalProductCard = (props: Props) => {
     const handleRemoveFromCard = () => {
 
         if(!product?.id) return;
-        console.log('Product', product);
         dispatch(removeFromCart({ productId: product?.id, eventDateId: (product as IWebinar)?.selectedDate?.value }));
     }
 

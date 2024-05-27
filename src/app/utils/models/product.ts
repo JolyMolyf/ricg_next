@@ -2,6 +2,7 @@ import { Author } from "@/app/components/common/authorCard/AuthorCard";
 
 export interface IProduct {
     id?: string; 
+    tyep?:string; 
     title: string;
     description: string;
     price: number;
