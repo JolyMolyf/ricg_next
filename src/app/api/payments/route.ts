@@ -3,27 +3,30 @@ import { headers } from "next/headers";
 import { redirect } from 'next/navigation'
 import { ProductTypes, productApi } from "@/app/utils/api/ProductApi";
 import moment from "moment";
+import { CartItem } from "@/store/cartSlice";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 
 export async function POST(req: NextRequest, res: NextResponse) {
     const headersList = headers();
-    const cartItems = await req.json();   
+    const payload:{ user: any, products: Array<CartItem> } = await req.json();   
     
-    const cartDetailsArray: any[] = await Promise.all((cartItems.products.map((item:any) => {
-        switch(item.type) {
+    const cartDetailsArray: any[] = await Promise.all((payload.products.map(async (item) => {
+        switch(item.product.type) {
             case ProductTypes.ebook: {
-                return productApi.getEbookById(item.id);
+                const product = await productApi.getEbookById(item.product.id)
+                return { quantity: item.quantity, product };
             }
             case ProductTypes.lecture: {
-                return productApi.getLectureById(item.id);
+                const product = await productApi.getLectureById(item.product.id);
+                return { quantity: item.quantity, product};
             }
             case ProductTypes.webinar: {
-                return productApi.getWebinarByEventDateId(item?.selectedDate?.value);
+                const product = await productApi.getWebinarByEventDateId(item.product?.selectedDate?.value);
+                return { quantity: item.quantity, product};
             }
         }
-
     })));
 
     const taxRate = await stripe.taxRates.create({
@@ -35,23 +38,25 @@ export async function POST(req: NextRequest, res: NextResponse) {
         description: 'EU VAT 23%',
       });
 
-    const lineItems = cartDetailsArray.map((item: any) => {
+      console.log(cartDetailsArray);
+
+    const lineItems = cartDetailsArray.map((item: CartItem) => {
 
         return {
             price_data: {
                 currency: 'PLN',
                 product_data: {
-                    name: item.title,
-                    description: moment(item.date).format('MMMM Do YYYY hh:mm'),
+                    name: item.product.title,
+                    description: moment(item.product.date).format('MMMM Do YYYY hh:mm'),
                     metadata: {
-                        id: item.id,
-                        eventdateid: item?.selectedDate,
-                        productType: item.type
+                        id: item.product.id,
+                        eventdateid: item?.product.selectedDate,
+                        productType: item?.product.type
                     }
                 },
-                unit_amount: (item?.redeemedPrice ?? item.price) * 100,
+                unit_amount: (item?.product.redeemedPrice ?? item?.product.price) * 100,
             },
-            quantity: 1,
+            quantity: item.quantity,
             tax_rates: [taxRate.id],
         };
     });
@@ -69,8 +74,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
             line_items: lineItems,
             mode: "payment",
             metadata: {
-                userId: cartItems.user.id,
-                userEmail: cartItems.user.email
+                userId: payload.user.id,
+                userEmail: payload.user.email
             },
             success_url: `${headersList.get("origin")}/thank-you`,
             cancel_url: `${headersList.get("origin")}/`,
