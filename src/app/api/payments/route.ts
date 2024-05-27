@@ -10,7 +10,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req: NextRequest, res: NextResponse) {
     const headersList = headers();
-    const payload:{ user: any, products: Array<CartItem> } = await req.json();   
+    const payload: { user: any, products: Array<CartItem> } = await req.json();   
     
     const cartDetailsArray: any[] = await Promise.all((payload.products.map(async (item) => {
         switch(item.product.type) {
@@ -38,9 +38,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         description: 'EU VAT 23%',
       });
 
-      console.log(cartDetailsArray);
+      console.log('Cart details items: ', cartDetailsArray);
 
-    const lineItems = cartDetailsArray.map((item: CartItem) => {
+    const lineItems = cartDetailsArray.filter((item) => item).map((item: CartItem) => {
 
         return {
             price_data: {
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                         productType: item?.product.type
                     }
                 },
-                unit_amount: (item?.product.redeemedPrice ?? item?.product.price) * 100,
+                unit_amount: (item?.product?.redeemedPrice ?? item?.product.price) * 100,
             },
             quantity: item.quantity,
             tax_rates: [taxRate.id],

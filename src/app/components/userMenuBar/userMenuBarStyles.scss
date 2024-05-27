@@ -10,6 +10,12 @@
     background-color: #9a4580;
     color: #fff; 
 
+    @media only screen and (max-width: 480px) {
+       height: 220px;
+       width: 298px;
+       margin: 10px 0;
+    }
+
     &-item {
         margin-top: 10px;
         border-radius: 10px;

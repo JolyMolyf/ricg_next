@@ -8,27 +8,34 @@
     justify-content: space-between;
     &-left {
         img {
+            @media only screen and (max-width: 480px) {
+                width: 45px;
+             
+            }
             width: 80px;
         }
     }
     &-right {
-        width: 400px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size: 14px;
-        
+        font-size: 14px;        
     }
 
     &-item {
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0 3px;
         a {
             display: flex;
             align-items: center;
             justify-content: center;
+            @media only screen and (max-width: 480px) {
+                font-size: 13px;
+                text-transform: capitalize;
+            }
         }
         cursor: pointer;
         &-text {

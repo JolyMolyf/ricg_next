@@ -32,7 +32,9 @@ const NavBar = (props: INavBarProps) => {
     return (
     <div className='navbar'>
         <div className='navbar-left'>
-            <img  src={"/images/logo/ricg_logo.png"}></img>
+            <Link href={'/'}>
+                <img  src={"/images/logo/ricg_logo.png"}></img>
+            </Link>
         </div>
         <div className='navbar-right'>
             <div className={`navbar-item`}>
@@ -40,9 +42,6 @@ const NavBar = (props: INavBarProps) => {
             </div>
             <div className={`navbar-item`}>
                 <Link href={'/store'}  className='navbar-item-text'>Sklep</Link>
-            </div>
-            <div className={`navbar-item`}>
-                <p  className='navbar-item-text'>Kontakt</p>
             </div>
             <div className={`navbar-item`}>
                 {/* <p  className='navbar-item-text' onClick={handleLogOut}> { user?.firstName ? 'Log out' : ''}</p>  */}

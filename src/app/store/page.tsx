@@ -58,7 +58,7 @@ const page = () => {
   const handleCardClick = (product:any, selectedCardDate?:any) => {
     switch (activeMenuItem) {
       case 'webinar': 
-        router.push(`/store/product/webinar/${selectedCardDate.value}/${product.id}`);
+        router.push(`/store/product/webinar/${product.id}`);
         break;
       case 'lecture': 
         router.push( `/store/product/lecture/${product.id}`);

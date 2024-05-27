@@ -41,7 +41,7 @@ const EbookPage = (props: Props) => {
 
   return <div className='ebook'>
     <div className='ebook-header section'>
-      <div className='ebook-header-section'>
+      <div className='ebook-header-section image-section'>
         <img src={ebook?.coverImage?.data?.attributes?.url}/>
       </div>
       <div className='ebook-header-section'>
