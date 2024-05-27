@@ -10,6 +10,7 @@ import Button from '../components/common/inputs/button/Button';
 import axiosInterceptorInstance from '@/axios/axiosInterceptors';
 import { loadStripe } from '@stripe/stripe-js';
 import { orderApi } from '../utils/api/OrderApi';
+import { CartItem } from '@/store/cartSlice';
 
 interface Props {
 
@@ -19,13 +20,13 @@ const stripePromice = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 const page = (props:Props) => {
   
-  const items: Array<any> = useSelector((state:RootState) => state.cart.products);
+  const items: Array<CartItem> = useSelector((state:RootState) => state.cart.products);
   const user = useSelector((state:RootState) => state.auth.user);
   const [cartSum, setCartSum] = useState<number>(0)
   
   useEffect(() => {
     const tmpSum:number = items.reduce((acc, cur) => {
-        return acc + ( (cur?.redeemedPrice ?? cur?.price) )
+        return acc + ( cur.quantity * (cur.product?.redeemedPrice ?? cur?.product.price) )
     }, 0)
     setCartSum(tmpSum)
 }, [items])
@@ -47,10 +48,10 @@ const page = (props:Props) => {
       <p className='cart-header'>Kupione Produkty</p>
       <div className='cart-container'>
         <div className='cart-container-items'>
-          { items.map((item, key:number) => {
+          { items.map((item:CartItem, key:number) => {
             return (
               <div key={key} style={{width: '100%', marginTop: 10}}>
-                <HorizontalProductCard product={item}/>
+                <HorizontalProductCard product={item.product} quantity={item.quantity}/>
               </div>
             )
           }) }

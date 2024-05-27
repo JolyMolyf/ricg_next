@@ -2,10 +2,12 @@
 import './navbarStyles.scss';
 import Link from 'next/link';
 import { RootState } from '@/store';
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { logoutUser } from '@/store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { IProduct } from '@/app/utils/models/product';
+import { CartItem } from '@/store/cartSlice';
+import { current } from '@reduxjs/toolkit';
 
 interface INavBarProps {
 
@@ -13,10 +15,15 @@ interface INavBarProps {
 
 const NavBar = (props: INavBarProps) => {
     
-    const [activeMenuItem, setActiveMenuItem] = useState();
     const user = useSelector((state:RootState) => state.auth.user);
     const dispatch = useDispatch();
-    const cartProducts:Array<IProduct> = useSelector((state:RootState) => state.cart.products);
+    const cartProducts:Array<CartItem> = useSelector((state:RootState) => state.cart.products);
+    const countCartItemsNumber = useCallback(() => {
+
+        return cartProducts?.reduce((acc, cur) => {
+            return acc + cur.quantity;
+        }, 0);
+    }, [cartProducts])
 
     const handleLogOut = () => {
         dispatch(logoutUser())
@@ -46,7 +53,7 @@ const NavBar = (props: INavBarProps) => {
             <div className='navbar-item'>
                 <Link href={'/cart'}>
                     <img src='./images/icons/cart.png'/>
-                    <p>{ cartProducts.length }</p>
+                    <p>{ countCartItemsNumber() }</p>
                 </Link>
                 
             </div>

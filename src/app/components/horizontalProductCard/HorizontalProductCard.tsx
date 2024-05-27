@@ -7,18 +7,19 @@ import { removeFromCart } from '@/store/cartSlice';
 
 interface Props {
     product: IProduct
+    quantity?:number;
 }
 
 const HorizontalProductCard = (props: Props) => {
     
-    const { product } = props;
+    const { product, quantity } = props;
 
     const dispatch = useDispatch();
 
     const handleRemoveFromCard = () => {
 
         if(!product?.id) return;
-        dispatch(removeFromCart({ productId: product?.id, eventDateId: (product as IWebinar)?.selectedDate?.value }));
+        dispatch(removeFromCart({ productType: product.type,  productId: product?.id, eventDateId: (product as IWebinar)?.selectedDate?.value }));
     }
 
     return (
@@ -30,6 +31,9 @@ const HorizontalProductCard = (props: Props) => {
                 <p className='horizontalCard-product-description'> { product?.description } </p>
             </div>
             <div className='horizontalCard-actions'>
+                <div>
+                    <p>x{ quantity ?? 1 }</p>
+                </div>
                 <div className='horizontalCard-actions-price'>
                     { product.redeemedPrice ? (
                         <div>

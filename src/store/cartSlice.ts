@@ -1,7 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { ProductTypes } from "@/app/utils/api/ProductApi";
+import { createSlice, current } from "@reduxjs/toolkit";
+
+
+export interface CartItem {
+    quantity: number; 
+    product: any;
+}
 
 interface ICartState {
-    products: Array<any>
+    products: Array<CartItem>
 }
 
 const initialState: ICartState = {
@@ -13,25 +20,47 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            state.products = [...state.products, action.payload]
+            const product = action.payload;
+            const currentState = current(state);
+            let foundIndex:number;
+            if ( product.type === ProductTypes.webinar ) {
+                foundIndex = currentState.products.findIndex((item) => item.product.type === action.payload.type && item.product.id === action.payload.id && item.product.selectedDate.value === action.payload.selectedDate.value)
+            } else {
+                foundIndex = currentState.products.findIndex((item) => item.product.type === action.payload.type && item.product.id === action.payload.id)
+            }
+
+            if ( foundIndex !== -1 ) {
+                const tmpItems = [...currentState.products]
+                tmpItems[foundIndex] = { ...tmpItems[foundIndex], quantity: tmpItems[foundIndex].quantity + 1 }
+                state.products = [...tmpItems];
+             } else {
+                state.products = [...currentState.products, { quantity: 1, product: action.payload}];
+             }
+         
         },
         removeFromCart: (state, action) => {
-            const filteredProducts = state.products.filter((product ) => {
-                if (product?.selectedDate?.value) {
-                    if (product.id === action.payload.productId ) {
-                        if ( product.selectedDate.value === action.payload.eventDateId ) {
-                            return false
-                        }
-                        return true
-                    }
-                    return true
-                } else {
-                    return product.id !== action.payload.productId
-                }
-                
-            })
+            const product = action.payload;
+            const currentState = current(state);
+            const tmpItems = [...currentState.products]
+            let foundIndex:number;
 
-            state.products = [...filteredProducts]
+            if ( product.productType === ProductTypes.webinar ) {
+                foundIndex = currentState.products.findIndex((item) => item.product.type === action.payload.productType && item.product.id === action.payload.productId && item.product.selectedDate.value === action.payload.eventDateId)
+            } else {
+                foundIndex = currentState.products.findIndex((item) => item.product.type === action.payload.productType && item.product.id === action.payload.productId)
+            }
+            
+            if ( foundIndex !== -1 && tmpItems[foundIndex].quantity !== 1 ) {
+                tmpItems[foundIndex] = { ...tmpItems[foundIndex], quantity: tmpItems[foundIndex].quantity - 1 }
+                state.products = tmpItems;
+             } else {   
+           
+                if ( action.payload.productType === ProductTypes.webinar ) {
+                    state.products = tmpItems.filter((item) => !(item.product.type === action.payload.productType && item.product.id === action.payload.productId && item.product.selectedDate.value === action.payload.eventDateId))
+                } else {
+                    state.products = tmpItems.filter((item) => !(item.product.type === action.payload.productType && item.product.id === action.payload.productId))
+                }
+             }
         }
     }
 })

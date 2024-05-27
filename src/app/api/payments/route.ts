@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { redirect } from 'next/navigation'
 import { ProductTypes, productApi } from "@/app/utils/api/ProductApi";
+import moment from "moment";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -35,11 +36,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       });
 
     const lineItems = cartDetailsArray.map((item: any) => {
+
         return {
             price_data: {
                 currency: 'PLN',
                 product_data: {
                     name: item.title,
+                    description: moment(item.date).format('MMMM Do YYYY hh:mm'),
                     metadata: {
                         id: item.id,
                         eventdateid: item?.selectedDate,
@@ -52,7 +55,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             tax_rates: [taxRate.id],
         };
     });
-    
+
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card", "blik", "p24"],

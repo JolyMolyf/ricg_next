@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     const ebooks = boughtItems.filter((ebook) => ebook.type === ProductTypes.ebook).map((ebook) => ebook.id);
     const lectures = boughtItems.filter((lecture) => lecture.type === ProductTypes.lecture).map((lecture) => lecture.id );
 
-    const orderRes = await Promise.all(orderApi.createOrder(sessionWithLineItems.metadata.userId, 200, event_dates, lectures, ebooks));
+    await Promise.all(orderApi.createOrder(sessionWithLineItems.metadata.userId, 200, event_dates, lectures, ebooks));
     return NextResponse.json({ result: event, boughtItems, event_dates, ebooks, lectures, ok: true });
     }
     return NextResponse.json({ result: event, ok: true });

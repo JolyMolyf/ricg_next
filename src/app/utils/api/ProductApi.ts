@@ -53,7 +53,7 @@ const getWebinarById = async (webinarId:string) => {
 
 const getWebinarByEventDateId =  (eventDateId: string) => {
     return axios.get(`http://localhost:1337/api/eventdates/${eventDateId}?populate[0]=webinar.coverImage`).then((res) => {
-        return { id: res.data.data.attributes.webinar.data.id, type: ProductTypes.webinar, selectedDate: eventDateId, ...res.data.data.attributes.webinar.data.attributes };
+        return { id: res.data.data.attributes.webinar.data.id, type: ProductTypes.webinar, date: res.data.data.attributes.date, selectedDate: eventDateId, ...res.data.data.attributes.webinar.data.attributes };
     })
 }
 
