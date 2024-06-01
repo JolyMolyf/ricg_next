@@ -31,24 +31,26 @@ const HorizontalProductCard = (props: Props) => {
                 <p className='horizontalCard-product-description'> { product?.description } </p>
             </div>
             <div className='horizontalCard-actions'>
-                <div>
-                    <p>x{ quantity ?? 1 }</p>
-                </div>
-                <div className='horizontalCard-actions-price'>
-                    { product.redeemedPrice ? (
-                        <div>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 110, height: 20 }}>
-                                <p>{product.redeemedPrice} zł</p> 
-                                <p style={{ textDecoration: 'line-through', fontSize: '16px' }}>{ product.price } zł</p>  
-                            </div>
-                            <p style={{ fontSize: 16 }}>{Math.ceil(product.redeemedPrice/ 1.23)} zł netto</p>
-                        </div>) 
-                        
-                        : (<div >
-                                <p>{Math.ceil(product.price)} zł</p>
-                                <p style={{ fontSize: 15 }}>{Math.ceil(product.price / 1.23)} zł netto</p>
-                            </div> )
-                    }
+                <div className='horizontalCard-actions-wrapper'>
+                    <div>
+                        <p>x{ quantity ?? 1 }</p>
+                    </div>
+                    <div className='horizontalCard-actions-price'>
+                        { product.redeemedPrice ? (
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 110, height: 20 }}>
+                                    <p>{product.redeemedPrice} zł</p> 
+                                    <p style={{ textDecoration: 'line-through', fontSize: '16px' }}>{ product.price } zł</p>  
+                                </div>
+                                <p style={{ fontSize: 16 }}>{Math.ceil(product.redeemedPrice/ 1.23)} zł netto</p>
+                            </div>) 
+                            
+                            : (<div >
+                                    <p>{Math.ceil(product.price)} zł</p>
+                                    <p style={{ fontSize: 15 }}>{Math.ceil(product.price / 1.23)} zł netto</p>
+                                </div> )
+                        }
+                    </div>
                 </div>
                 <Button onParentClick={handleRemoveFromCard} className='horizontalCard-actions-buttons' label='Usun'/>
             </div>

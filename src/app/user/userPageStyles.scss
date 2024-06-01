@@ -4,6 +4,13 @@
     margin: 0 auto;
     display: flex;
     flex-direction: row;
+    
+    @media only screen and (max-width: 480px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     &-section {
         width: 100%;
         margin: 10px;
@@ -12,6 +19,11 @@
             font-weight: 600;
         }
         &-item {
+            @media only screen and (max-width: 480px) {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             margin: 20px 0;
         }
 
@@ -38,6 +50,12 @@
 
 
 #userPage-right {
+
+    @media only screen and (max-width: 480px) {
+        width: 100%;
+        margin-right: 0px;
+    }
+
     width: 250px;
     margin-right: 35px;
 }

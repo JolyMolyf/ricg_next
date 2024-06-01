@@ -8,17 +8,32 @@
     align-items: flex-start;
     justify-content: space-between;
 
+    @media only screen and (max-width: 480px) {
+        height: 550px;
+        flex-direction: column;
 
+
+    }
+  
     img {
         border-radius: 20px 0px 0px 20px;
         height: 225px;
         width: 25%;
         object-fit: cover;
+
+        @media only screen and (max-width: 480px) {
+          width: 100%;
+          border-radius: 20px 20px 0px 0px;
+        }
     }
 
     &-product {
         margin: 10px 15px; 
         width: 70%;
+
+        @media only screen and (max-width: 480px) {
+            width: 90%;
+        }
 
         p {
             color: #fff;
@@ -59,6 +74,18 @@
         width: 20%;
         color: #fff;
         border-left: 2px solid #fff;
+
+        &-wrapper {
+            display: flex;
+
+        }
+
+        @media only screen and (max-width: 480px) {
+            width: 100%;
+            flex-direction: row;
+            border-left: 0;
+            justify-content: space-between;
+        }
 
         &-buttons {
             button {
