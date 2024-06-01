@@ -31,7 +31,7 @@ const getAllWebinars = async () => {
 }
 
 const getLectureById = (lectureId:string) => {
-    return axios.get(`http://localhost:1337/api/lectures/${lectureId}?populate[0]=coverImage&populate[1]=author.image&populate[2]=lecture_parts`).then((res) => {
+    return axios.get(`http://localhost:1337/api/lectures/${lectureId}?populate[0]=coverImage&populate[1]=author.image&populate[2]=lecture_parts.previewImage`).then((res) => {
         return {id: res.data.data.id, ...res.data.data.attributes, type: ProductTypes.lecture}
     }).catch((e) => {
         console.error('error: ', e);

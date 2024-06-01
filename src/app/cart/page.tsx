@@ -18,7 +18,7 @@ interface Props {
 
 const stripePromice = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
-const page = (props:Props) => {
+const Cart = (props:Props) => {
   
   const items: Array<CartItem> = useSelector((state:RootState) => state.cart.products);
   const user = useSelector((state:RootState) => state.auth.user);
@@ -74,4 +74,4 @@ const page = (props:Props) => {
   )
 }
 
-export default page
+export default Cart

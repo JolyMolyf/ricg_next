@@ -40,12 +40,21 @@ export interface IEbook extends IProduct {
 
 export interface ILecture extends IProduct {
     link: string;
-    lecture_parts: {data: Array<{id: string; attributes: ILecturePart}>}
+    lecture_parts: {data: 
+        Array<{id: string; attributes: ILecturePart}>
+    }
 }
 
-interface ILecturePart  {
+export interface ILecturePart  {
     id?:string;
     title: string;
     description: string;
-    url: string;
+    key: string;
+    previewImage: {
+        data: {
+            attributes: {
+                url: string;
+            }
+        }
+    }
 }

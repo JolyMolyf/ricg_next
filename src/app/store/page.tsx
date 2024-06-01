@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 
 interface Props {}
 
-const page = () => {
+const Store = () => {
 
   const [ ebooks, setEbooks ] = useState<Array<IEbook>>([]);
   const [ lectures, setLectures ] = useState<Array<ILecture>>([]);
@@ -89,4 +89,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Store

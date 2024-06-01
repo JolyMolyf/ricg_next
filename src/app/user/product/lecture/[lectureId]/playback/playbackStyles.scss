@@ -1,0 +1,61 @@
+.playback {
+    display: flex;
+    flex-direction: row;
+    max-width: 1440px;
+    width: 90%;
+    margin: 0 auto;
+
+    @media only screen and (max-width: 480px) {
+       flex-direction: column;
+    }
+  
+    @media only screen and (min-width: 481px) and (max-width: 950px) {
+        flex-direction: column;
+    }
+
+    &-player {
+        position: relative;
+        width: 65%;
+        
+        video { 
+            border-radius: 20px;
+        }
+
+        @media only screen and (max-width: 480px) {
+            width: 100%;
+        }
+       
+        @media only screen and (min-width: 481px) and (max-width: 950px) {
+            width: 100%;
+        }
+     
+
+        &-description {
+            p {
+                margin: 10px;
+            }
+
+            &-header {
+                font-weight: 700;
+                font-size: 28px;
+            }
+            margin: 10px 0;
+            width: 98%;
+            background-color: #f2f2f2;
+            border-radius: 20px;
+            padding: 10px 10px;
+        }
+    }
+
+    &-parts {
+        width: 30%;
+
+        @media only screen and (max-width: 480px) {
+            width: 100%;
+        }
+       
+        @media only screen and (min-width: 481px) and (max-width: 950px) {
+            width: 100%;
+        }
+    }
+}

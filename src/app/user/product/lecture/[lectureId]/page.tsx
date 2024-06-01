@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 interface Props {}
 
-const page = () => {
+const UserLecturePageWrapper = () => {
   
   const user = useSelector((state:RootState) => state.auth.user);
   const isAuthenticated = useSelector((state:RootState) => state.auth.authState );
@@ -26,4 +26,4 @@ const page = () => {
   )
 }
 
-export default page
+export default UserLecturePageWrapper

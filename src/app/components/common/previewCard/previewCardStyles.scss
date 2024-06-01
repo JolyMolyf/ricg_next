@@ -1,0 +1,49 @@
+.previewCard {
+    cursor: pointer;
+    p {
+        margin: 0;
+    }
+    display: flex;
+    width: 350px;
+    height: 100px;
+    margin: 10px;
+    
+    @media only screen and (max-width: 480px) {
+        width: 100%;
+    }
+   
+    @media only screen and (min-width: 481px) and (max-width: 950px) {
+        width: 100%;
+    }
+    &-image {
+        border-radius: 10px;
+
+        img {
+            width: 200px;
+        }
+    }
+
+    &-title {
+        color: #6a6a6a;
+        font-size: 18px;
+        margin: 8px 0 !important;
+        margin-left: 10px !important;
+        font-weight: 700;
+    }
+
+    &-description {
+        margin-left: 10px !important;
+        font-size: 14px;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-selected {
+        border-radius: 20px;
+        background-color: #f2f2f2; 
+
+    }
+}
