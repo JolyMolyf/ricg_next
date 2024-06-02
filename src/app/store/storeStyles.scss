@@ -4,7 +4,7 @@
     margin: 10px auto;
     display: flex;
 
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 600px) {
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
@@ -13,8 +13,9 @@
     &-products {
         margin-left: 20px;
 
-        @media only screen and (max-width: 480px) {
+        @media only screen and (max-width: 600px) {
            margin-left: 0;
+           margin-top: 20px;
         }
 
         display: grid;

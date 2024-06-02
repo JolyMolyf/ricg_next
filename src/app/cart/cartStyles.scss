@@ -23,6 +23,10 @@
             flex-wrap: wrap;
         }
 
+        @media only screen and (max-width: 1024px) {
+            flex-direction: column-reverse;
+
+        }
         &-items {
             display: flex;
             flex-direction: column;
@@ -32,6 +36,10 @@
 
             @media only screen and (max-width: 480px) {
               width: 100%;
+            }
+
+            @media only screen and (max-width: 1024px) {
+                width: 100%;
             }
         }
     
