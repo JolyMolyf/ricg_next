@@ -1,6 +1,8 @@
 'use client'
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import ContactInfoApi from "@/app/utils/api/ContactInfoApi";
+import CookieConsent from "react-cookie-consent";
 
 const StyledFooter = styled.div`
     position: relative; 
@@ -49,9 +51,9 @@ const Footer = () => {
     const [ contactInfo, setContactInfo ] = useState<any>();
 
     useEffect(() => {
-        // ContactInfoApi.getContactInfo().then((info:any) => {
-        //     setContactInfo(info);
-        // })
+        ContactInfoApi.getContactInfo().then((info:any) => {
+            setContactInfo(info);
+        })
     }, [])
 
     return (
@@ -72,7 +74,7 @@ const Footer = () => {
                     Created by JolyCodes
                 </div>
             </StyledContactWrapper>
-            {/* <CookieConsent
+            <CookieConsent
               containerClasses="cookieConsent"
               location="bottom"
               buttonText="Accept"
@@ -82,8 +84,8 @@ const Footer = () => {
               expires={150}
             >
               This website uses cookies to enhance the user experience.
-              <a style={{marginLeft: 10, color: "#fff"}} href={contactInfo?.cookies?.data?.attributes?.url}>Polityka Cookie</a> */}
-          {/* </CookieConsent> */}
+              <a style={{marginLeft: 10, color: "#fff"}} href={contactInfo?.cookies?.data?.attributes?.url}>Polityka Cookie</a>
+            </CookieConsent>
         </StyledFooter>
     )
 }

@@ -1,5 +1,5 @@
 'use client';
-import { productApi } from '@/app/utils/api/ProductApi';
+import { ProductTypes, productApi } from '@/app/utils/api/ProductApi';
 import { ILecture } from '@/app/utils/models/product';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -11,6 +11,7 @@ import ImageTextSection from '../../sections/imageTextSection/ImageTextSection';
 import ProductPart from '../../productPart/ProductPart';
 import './lecturePageStyles.scss';
 import AuthorCard from '../../common/authorCard/AuthorCard';
+import ContentPagePreLoader from '../../preloaders/ContentPagePreloader';
 interface Props {
   isSelling:boolean
 }
@@ -32,11 +33,12 @@ const LecutrePage = (props:Props) => {
   }, [])
 
   const handleAddToCart = () => {
-    dispatch(addToCart({...lecture}))
+    dispatch(addToCart({...lecture, type: ProductTypes.lecture}))
   }
 
   return (
     <div className='lecture'>
+      { !lecture && <ContentPagePreLoader/>}
       <div className='lecture-header section'>
         <div className='lecture-header-section image-section'>
           <img src={lecture?.coverImage?.data?.attributes?.url}/>

@@ -7,6 +7,7 @@ import { productApi } from '../utils/api/ProductApi'
 import ProductCard from '../components/productCard/ProductCard';
 import './storeStyles.scss';
 import { useRouter } from 'next/navigation'
+import MultipleItemPagePreLoader from '../components/preloaders/MultipleItemPagePreLoader'
 
 interface Props {}
 
@@ -71,10 +72,12 @@ const Store = () => {
   }
 
   return (
-    <div  className='store'>
+    <div>
+    {  ebooks.length === 0 || lectures.length === 0 || webinars.length === 0 ? <MultipleItemPagePreLoader/> : ( 
+      <div  className='store'>
       <UserMenubar ebooks={ebooks} lectures={lectures} webinars={webinars} parentActiveMenuItem={activeMenuItem} setParentActiveMenuItem={handleActiveMenuItemChange}/>
-      <div className='store-products'>
-        { activeProductList?.map((product:any, key: number) => {
+       <div className='store-products'>
+         { activeProductList?.map((product:any, key: number) => {
 
           return (
             <div key={key} onClick={() => {
@@ -85,7 +88,10 @@ const Store = () => {
           )
         })  }
       </div>
-    </div>
+      </div>
+    ) 
+  }  
+    </div>   
   )
 }
 

@@ -2,7 +2,7 @@
 'use client'
 
 import { RootState } from '@/store';
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import HorizontalProductCard from '../components/horizontalProductCard/HorizontalProductCard';
 import './cartStyles.scss';
@@ -11,6 +11,7 @@ import axiosInterceptorInstance from '@/axios/axiosInterceptors';
 import { loadStripe } from '@stripe/stripe-js';
 import { orderApi } from '../utils/api/OrderApi';
 import { CartItem } from '@/store/cartSlice';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 
@@ -21,7 +22,9 @@ const stripePromice = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 const Cart = (props:Props) => {
   
   const items: Array<CartItem> = useSelector((state:RootState) => state.cart.products);
+  const isAuthenticated = useSelector((state:RootState) => state.auth)
   const user = useSelector((state:RootState) => state.auth.user);
+  const navigate = useRouter();
   const [cartSum, setCartSum] = useState<number>(0)
   
   useEffect(() => {
@@ -32,15 +35,21 @@ const Cart = (props:Props) => {
 }, [items])
 
   const handlePayment = async () => {
-    axiosInterceptorInstance.post('http://localhost:3000/api/payments', {
-      products: items,
-      user
-     }).then(async (session) => {
-        const stripe = await stripePromice;
-        const { error } = await stripe!.redirectToCheckout({
-          sessionId: session.data.sessionId,
-        });
-     })
+    if ( isAuthenticated && user ) {
+      console.log(items);
+      axiosInterceptorInstance.post('http://localhost:3000/api/payments', {
+        products: items,
+        user
+       }).then(async (session) => {
+          const stripe = await stripePromice;
+          const { error } = await stripe!.redirectToCheckout({
+            sessionId: session.data.sessionId,
+          });
+       })
+    } else {
+      navigate.push('/auth/login');
+    }
+    
   }
 
   return (

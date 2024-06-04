@@ -11,8 +11,11 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export async function POST(req: NextRequest, res: NextResponse) {
     const headersList = headers();
     const payload: { user: any, products: Array<CartItem> } = await req.json();   
+
+    console.log('Payload: ', payload)
     
     const cartDetailsArray: any[] = await Promise.all((payload.products.map(async (item) => {
+        console.log('Tyep: ', item.product.type);
         switch(item.product.type) {
             case ProductTypes.ebook: {
                 const product = await productApi.getEbookById(item.product.id)

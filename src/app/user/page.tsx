@@ -14,6 +14,7 @@ import ProductCard from '../components/productCard/ProductCard';
 import { IWebinar, ILecture, IEbook, IProduct } from '../utils/models/product';
 import { useRouter } from 'next/navigation'
 import CartPopup from '../components/popups/cartPopup/CartPopup';
+import UserPagePreloader from '../components/preloaders/UserPagePreloader';
 
 interface IUserPageProps {
 
@@ -100,7 +101,7 @@ const Page = (props:IUserPageProps) => {
       <div className='userPage-section'>
         <h1 className='userPage-section-header'>{ menuItems?.[activeMenuItem] }</h1>
         <div className='userPage-section-products'>
-          { activeProductList?.map((product:any, index:number) => {
+          { activeProductList ? activeProductList?.map((product:any, index:number) => {
          
           let mergedObject:IProduct | IWebinar | ILecture | IEbook = {
             ...(product as any).attributes,
@@ -127,7 +128,7 @@ const Page = (props:IUserPageProps) => {
               <ProductCard onClick={onProductCardClick} cardType={activeMenuItem} isSellingMode={false} product={mergedObject}/>
             </div>
           )
-          }) }
+          }) : <UserPagePreloader/> }
         </div>
       </div>
     </div>

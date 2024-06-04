@@ -25,6 +25,34 @@
         max-width: 440px;
         background-color: #9a4580;
         align-items: center;
+
+        &-consest {
+            text-align: center;
+            p {
+                margin: 5px;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+
+            &-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 320px;
+                color: #fff;
+
+                input {
+                    margin-right: 10px;
+                    background-color: rgba(255, 255, 255, 0.2) !important ;
+                    border: 0;
+                    height: 14px;
+                    width: 14px;
+                }
+            }
+        }
+
         &-double {
             display: flex;
             justify-content: center;

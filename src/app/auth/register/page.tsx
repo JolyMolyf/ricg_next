@@ -16,6 +16,7 @@ interface IFormFields {
   lastName: string;
   email: string;
   password: string;
+  consest: boolean | string;
 }
 
 const Page = (props:IProps) => {
@@ -26,7 +27,8 @@ const Page = (props:IProps) => {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    consest: false
   });
 
   const [ formValidationModel, setFormValidationModel ] = useState<IFormFields>();
@@ -41,7 +43,8 @@ const Page = (props:IProps) => {
       email: fields.email !== '' && fields.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? '' : 'Invalid email',
       lastName: fields.lastName !== '' ? '' : 'Required',
       firstName: fields.firstName !== '' ? '' : 'Required',
-      password: fields.password !== '' && fields.password.length > 7 ? '' : 'Password is too short'
+      password: fields.password !== '' && fields.password.length > 7 ? '' : 'Password is too short',
+      consest: !!fields.consest ? '' : 'Accept Regulations'
     };
 
     const isValid:boolean =  Object.values(validationResult).every((value) => value === '')
@@ -59,6 +62,8 @@ const Page = (props:IProps) => {
     } 
   }
 
+  console.log(formFields);
+
   return (
     <div className='form'>
       <div className='form-header'>
@@ -72,6 +77,15 @@ const Page = (props:IProps) => {
         </div>
         <TextInput className='form-wrapper-input' name='email' value={formFields.email} onParentChange={handleInputChange} error={formValidationModel?.email} label='Email'/>
         <TextInput className='form-wrapper-input' name='password' value={formFields.password}onParentChange={handleInputChange} label='Password' type='password' error={formValidationModel?.password}/>
+        <div className='form-wrapper-consest'>
+          <div className='form-wrapper-consest-wrapper'>
+            <input checked={!!formFields.consest} name='consest' type='checkbox' onChange={(e) => {
+              setFormFields({...formFields, consest: !formFields.consest})
+            }}/>
+            <p>Akceptuje <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413715/RICG_regulamin_uwagi_20230821_3853487af0_d7d487b5d2.pdf">Regulamin</Link> i <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413714/RICG_Obowiazek_informacyjny_i_zgody_szkolenie_97b91e88b5.pdf">RODO</Link></p>
+          </div>
+          { !!formValidationModel?.consest && <label className='input-label-error'>Nie zaznaczona zgoda</label>}
+        </div>
         <Button isDisabled={!isValid} label={'Zarejestruj sie'} onParentClick={onSubmit}/>
       </div>
       <div className='form-wrapper-footer'>

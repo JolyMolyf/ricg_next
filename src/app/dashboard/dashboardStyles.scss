@@ -1,0 +1,23 @@
+.dashboard {
+    max-width: 1440px;
+    width: 90%;
+    margin: 0 auto;
+    &-wrapper {
+        &-time {
+           
+            &-header {
+                text-transform: capitalize;
+                font-size: 24px;
+                font-weight: 600;
+                margin: 10px 0px;
+            }
+
+            &-entries {
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
+        
+    }
+  
+}

@@ -17,6 +17,8 @@ import { addToCart } from '@/store/cartSlice';
 import Dropdown from 'react-dropdown';
 import AuthorCard from '../../common/authorCard/AuthorCard';
 import ImageTextSection from '../../sections/imageTextSection/ImageTextSection';
+import { ProductTypes } from '@/app/utils/api/ProductApi';
+import ContentPagePreLoader from '../../preloaders/ContentPagePreloader';
 
 interface Props {
   isSelling: boolean;
@@ -60,7 +62,7 @@ const WebinarPage = (props: Props) => {
   const handleAddToCart = () => {
     if (isSelling) {
       if (product) {
-          dispatch(addToCart({...product, selectedDate: selectedCardDate}))
+          dispatch(addToCart({...product, selectedDate: selectedCardDate, type: ProductTypes.webinar}))
       }
     }
   }
@@ -72,6 +74,7 @@ const WebinarPage = (props: Props) => {
 
   return (
     <div className='userWebinar'>
+      { !product && <ContentPagePreLoader/> }
       <div className='userWebinar-header'>
         <div className='userWebinar-header-image'>
           <img src={product?.coverImage?.data?.attributes?.url}></img>

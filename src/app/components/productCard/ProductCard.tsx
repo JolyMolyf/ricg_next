@@ -33,6 +33,8 @@ const ProductCard = (props:IProps) => {
                 setIsModalOpen(true);
                 dispatch(addToCart({...product, selectedDate: selectedCardDate}))
             }
+        } else {
+            onClick?.(product, selectedCardDate);
         }
     }
 

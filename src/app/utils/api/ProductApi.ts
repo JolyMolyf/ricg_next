@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IEbook, ILecture, IWebinar } from "../models/product"
+import axiosInterceptorInstance from "@/axios/axiosInterceptors";
 
 export const ProductTypes = {
     ebook: 'EBOOK',
@@ -57,9 +58,16 @@ const getWebinarByEventDateId =  (eventDateId: string) => {
     })
 }
 
-
+const getAllOrders = () => {
+    return axiosInterceptorInstance.get('http://localhost:1337/api/orders?populate[0]=lectures&populate[1]=ebooks&populate[2]=event_dates.webinar&populate[3]=user').then((res) => {
+        return res.data.data
+    })
+}
 
 interface ProductApi {
+
+    getAllOrders: () => Promise<Array<any>>
+
     getAllLectures: () => Promise<Array<ILecture>>;
     getAllEbooks: () => Promise<Array<IEbook>>;
     getAllWebinars: () => Promise<Array<IWebinar>>;
@@ -72,6 +80,8 @@ interface ProductApi {
 }
 
 export const productApi:ProductApi = {
+    getAllOrders,
+
     getAllLectures,
     getAllEbooks,
     getAllWebinars,
