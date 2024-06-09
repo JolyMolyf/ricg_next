@@ -100,9 +100,9 @@ const Dashboard = () => {
                 <p className='dashboard-wrapper-time-header-sum'> Kupione {orders?.length } produktow na kwotę: { sumPrice(orders) } zł </p>
               </div>
               <div className='dashboard-wrapper-time-entries'>
-                { orders?.length > 0 ?  orders.map((order:any) => {
+                { orders?.length > 0 ?  orders.map((order:any, index) => {
                   return (
-                    <div>
+                    <div key={index}>
                       <OrderCard order={order}/>
                     </div>
                   )

@@ -54,9 +54,9 @@ const PlayBack = () => {
         <div className='playback-player-description'>
           <p className='playback-player-description-header'>Dodatkowe materialy</p>
           <div className='playback-player-flex'>
-            { activePart?.attributes?.files?.data?.map((file) => {
+            { activePart?.attributes?.files?.data?.map((file, index) => {
               return (  
-                <div className='playback-player-files'>
+                <div className='playback-player-files' key={index}>
                   <div className='playback-player-files-dot'></div>
                   <p><Link href={file.attributes.url}>{file.attributes.name}</Link></p>
                 </div>
