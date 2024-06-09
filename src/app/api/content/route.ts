@@ -2,7 +2,6 @@
 import { NextResponse } from "next/server";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/cloudfront-signer"
-import { Sha256 } from "@aws-crypto/sha256-browser";
 type ResponseData = {
  url: string,
 }
@@ -34,6 +33,6 @@ export async function GET(): Promise<ResponseData> {
     return new NextResponse(signedUrl)
   } catch (error) {
     console.error('Error fetching image from S3:', error);
-    return new Response('Error fetching image from S3');
+    return new NextResponse('Error fetching image from S3');
   }
 }
