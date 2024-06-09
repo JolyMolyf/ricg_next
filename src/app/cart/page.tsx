@@ -1,17 +1,18 @@
-
 'use client'
 
 import { RootState } from '@/store';
 import React, { use, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import HorizontalProductCard from '../components/horizontalProductCard/HorizontalProductCard';
 import './cartStyles.scss';
 import Button from '../components/common/inputs/button/Button';
 import axiosInterceptorInstance from '@/axios/axiosInterceptors';
 import { loadStripe } from '@stripe/stripe-js';
 import { orderApi } from '../utils/api/OrderApi';
-import { CartItem } from '@/store/cartSlice';
+import { CartItem, updateCart } from '@/store/cartSlice';
 import { useRouter } from 'next/navigation';
+import { ProductTypes } from '../utils/api/ProductApi';
+import { openCloseAlreadyBoughtNotification } from '@/store/appSlice';
 
 interface Props {
 
@@ -25,6 +26,7 @@ const Cart = (props:Props) => {
   const isAuthenticated = useSelector((state:RootState) => state.auth)
   const user = useSelector((state:RootState) => state.auth.user);
   const navigate = useRouter();
+  const dispatch = useDispatch();
   const [cartSum, setCartSum] = useState<number>(0)
   
   useEffect(() => {
@@ -36,17 +38,64 @@ const Cart = (props:Props) => {
 
   const handlePayment = async () => {
     if ( isAuthenticated && user ) {
-      console.log(items);
-      axiosInterceptorInstance.post('http://localhost:3000/api/payments', {
-        products: items,
-        user
-       }).then(async (session) => {
-          const stripe = await stripePromice;
-          const { error } = await stripe!.redirectToCheckout({
-            sessionId: session.data.sessionId,
-          });
-       })
-    } else {
+      orderApi.getAllUserOrdersByUserEmail(user.email).then((orders:any) => {
+        console.log(orders);
+
+        const allProducts = orders.reduce((acc:any, order:any) => {
+          const tmpAcc = {...acc};
+          tmpAcc.ebooks = tmpAcc.ebooks.concat(order.products.ebooks);
+          tmpAcc.lectures = tmpAcc.lectures.concat(order.products.ebooks);
+          tmpAcc.webinars = tmpAcc.webinars.concat(order.products.webinars);
+
+          return tmpAcc;
+        }, {
+          lectures: [],
+          ebooks: [],
+          webinars: [],
+         })
+
+        console.log(allProducts);
+
+        const alreadyBoughtItems =  items.filter((item) => {
+          console.log('Item: ', item)
+          switch (item.product.type) {
+            case ProductTypes.ebook: {
+              return !allProducts.ebooks.map((ebook:any) => ebook.id).includes(item.product.id)
+            }
+
+            case ProductTypes.lecture: {
+              return !allProducts.lectures.map((ebook:any) => ebook.id).includes(item.product.id)
+            }
+
+            case ProductTypes.webinar: {
+              return allProducts.webinars.map((webinar:any) => webinar.id).includes((id:any) =>  item.product.selectedDate.value);
+            }
+          }
+        }) 
+        
+        console.log(alreadyBoughtItems, items);
+        if ( alreadyBoughtItems.length < items.length ) {
+          dispatch(openCloseAlreadyBoughtNotification())
+          const payload = alreadyBoughtItems.map((item) => ({quantity: 1, product: {...item}}))
+          dispatch(updateCart(payload));
+        }
+
+        if (alreadyBoughtItems.length !== 0) {
+          axiosInterceptorInstance.post('http://localhost:3000/api/payments', {
+            products: items,
+            user
+          }).then(async (session) => {
+              const stripe = await stripePromice;
+              const { error } = await stripe!.redirectToCheckout({
+                sessionId: session.data.sessionId,
+              });
+           })
+        
+        }
+
+      });
+    
+    }  else {
       navigate.push('/auth/login');
     }
     

@@ -70,7 +70,7 @@ const Store = () => {
 
     }
   }
-  console.log(process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL);
+  
   return (
     <div>
     {  ebooks.length === 0 || lectures.length === 0 || webinars.length === 0 ? <MultipleItemPagePreLoader/> : ( 

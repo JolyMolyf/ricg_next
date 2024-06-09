@@ -1,7 +1,6 @@
 import { ProductTypes } from "@/app/utils/api/ProductApi";
 import { createSlice, current } from "@reduxjs/toolkit";
 
-
 export interface CartItem {
     quantity: number; 
     product: any;
@@ -9,10 +8,12 @@ export interface CartItem {
 
 interface ICartState {
     products: Array<CartItem>
+    isCartNotificationOpen: boolean,
 }
 
 const initialState: ICartState = {
-   products: []
+   products: [],
+   isCartNotificationOpen: false 
 };
 
 export const cartSlice = createSlice({ 
@@ -30,13 +31,14 @@ export const cartSlice = createSlice({
             }
 
             if ( foundIndex !== -1 ) {
-                const tmpItems = [...currentState.products]
-                tmpItems[foundIndex] = { ...tmpItems[foundIndex], quantity: tmpItems[foundIndex].quantity + 1 }
-                state.products = [...tmpItems];
+                state.isCartNotificationOpen = true;
              } else {
                 state.products = [...currentState.products, { quantity: 1, product: action.payload}];
              }
          
+        },
+        updateCart: (state, action) => {
+            state.products = action.payload
         },
         removeFromCart: (state, action) => {
             const product = action.payload;
@@ -61,9 +63,12 @@ export const cartSlice = createSlice({
                     state.products = tmpItems.filter((item) => !(item.product.type === action.payload.productType && item.product.id === action.payload.productId))
                 }
              }
+        },
+        openCloseAlreadyInCartNotification: (state, action) => {
+            state.isCartNotificationOpen = !state.isCartNotificationOpen
         }
     }
 })
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, openCloseAlreadyInCartNotification, updateCart } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

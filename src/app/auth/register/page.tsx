@@ -62,8 +62,6 @@ const Page = (props:IProps) => {
     } 
   }
 
-  console.log(formFields);
-
   return (
     <div className='form'>
       <div className='form-header'>

@@ -12,10 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const headersList = headers();
     const payload: { user: any, products: Array<CartItem> } = await req.json();   
 
-    console.log('Payload: ', payload)
-    
     const cartDetailsArray: any[] = await Promise.all((payload.products.map(async (item) => {
-        console.log('Tyep: ', item.product.type);
         switch(item.product.type) {
             case ProductTypes.ebook: {
                 const product = await productApi.getEbookById(item.product.id)
@@ -40,8 +37,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         jurisdiction: 'PL',
         description: 'EU VAT 23%',
       });
-
-      console.log('Cart details items: ', cartDetailsArray);
 
     const lineItems = cartDetailsArray.filter((item) => item).map((item: CartItem) => {
 
@@ -80,8 +75,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 userId: payload.user.id,
                 userEmail: payload.user.email
             },
-            success_url: `${headersList.get("origin")}/thank-you`,
-            cancel_url: `${headersList.get("origin")}/`,
+            success_url: `${headersList.get("origin")}/payments?success=true`,
+            cancel_url: `${headersList.get("origin")}/payments`,
         });
 
         return Response.json({sessionId: session.id});

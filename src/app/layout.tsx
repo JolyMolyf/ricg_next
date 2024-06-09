@@ -5,6 +5,8 @@ import "./globals.scss";
 import dynamic from "next/dynamic";
 import NavBar from "./components/navBar/NavBar";
 import Footer from "./components/footer/Footer";
+import AlreadyInCartPopUp from "./components/common/popUps/alreadyInCartPopUp/AlreadyInCartPopUp";
+import AlreadyBoughtPopUp from "./components/common/popUps/alreadyBoughtPopUp/AlreadyBoughtPopUp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +30,8 @@ export default function RootLayout({
         <SpeedInsights/>
         <ReduxProvider>
           <NavBar/>
+          <AlreadyInCartPopUp/>
+          <AlreadyBoughtPopUp/>
           <div style={{ minHeight: '78vh' }}>
             {children}
           </div>

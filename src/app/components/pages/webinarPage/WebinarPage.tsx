@@ -68,9 +68,8 @@ const WebinarPage = (props: Props) => {
   }
 
   const handleDropDownChange = (e:any) => {
-    setSelectedCardDate(e);    
+    setSelectedCardDate(e);   
   }
-  
 
   return (
     <div className='userWebinar'>
@@ -93,7 +92,7 @@ const WebinarPage = (props: Props) => {
           <div className='userWebinar-header-right-timer'>
             <p className='userWebinar-header-right-timer-header'>Zostalo do wydarzenia</p>
             <div className='userWebinar-header-right-timer-countdown'>
-              { product && <Coundown expiryTimestamp={moment(eventDate?.date)?.toDate()}/>}
+              { product && <Coundown expiryTimestamp={(moment(product?.event_dates?.data?.find((e) => e.id === selectedCardDate?.value ).attributes.date ?? eventDate?.date))?.toDate()}/>}
             </div>
           </div>
           <div className='userWebinar-header-right-action'>

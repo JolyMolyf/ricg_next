@@ -10,11 +10,6 @@ const getUserByEmail = () => {
    
 } 
 
-
-const getAllUsers = () => {
-    axios.get('')
-}
-
 const registerUser = async (userFields: any) => {
     const username = userFields.firstName + ' ' + userFields.lastName;
 

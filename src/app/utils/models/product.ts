@@ -57,4 +57,15 @@ export interface ILecturePart  {
             }
         }
     }
+    files: {
+        data: [
+            { 
+                id: string, 
+                attributes: { 
+                    url: string;
+                    name: string;
+                } 
+            }
+        ]
+    } 
 }

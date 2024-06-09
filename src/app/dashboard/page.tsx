@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { productApi } from '../utils/api/ProductApi';
 import './dashboardStyles.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import OrderCard from '../components/orderCard/OrderCard';
 
 interface Props {}
@@ -23,7 +23,6 @@ const Dashboard = () => {
     const today = moment();
     today.set({hour:0,minute:0,second:0,millisecond:0})
     productApi.getAllOrders().then((res) => {
-      console.log(res);
       const obj:any = {
         today: [],
         yesterday: [],
@@ -69,16 +68,39 @@ const Dashboard = () => {
     })
   }, [])
 
+  const sumPrice = useCallback((orders:Array<any>) => {
+    const ordersSum:number = orders.reduce((acc, order) => {
+      const ebookSum = order.attributes.ebooks.data.reduce ((acc:any, ebook:any) => {
+        return ebook.attributes.price  + acc;
+      }, 0)
+
+      const lectureSum = order.attributes.lectures.data.reduce ((acc:any, ebook:any) => {
+        return ebook.attributes.price  + acc;
+      }, 0)
+
+      const eventDatesSum = order.attributes.event_dates.data?.reduce ((acc:any, ebook:any) => {
+        return ebook?.attributes?.webinar?.data?.attributes?.price + acc;
+      }, 0)
+
+      return acc + ebookSum + lectureSum + eventDatesSum;
+    }, 0)
+
+    return ordersSum;
+  }, [])
+
   return (
     <div className='dashboard'>
       <p className='main-title'>DashBoard</p>
         <div className='dashboard-wrapper'>
-          {Object.entries(orders).map(([key, value]) => {
+          {Object.entries(orders).map(([key, orders]) => {
             return( 
             <div className='dashboard-wrapper-time'>
-              <div className='dashboard-wrapper-time-header'>{key?.match(/[A-Z]?[a-z]+|[0-9]+|[A-Z]+(?![a-z])/g)?.join(" ")}</div>
+              <div className='dashboard-wrapper-time-header'>
+                <p>{key?.match(/[A-Z]?[a-z]+|[0-9]+|[A-Z]+(?![a-z])/g)?.join(" ")}:</p>
+                <p className='dashboard-wrapper-time-header-sum'> Kupione {orders?.length } produktow na kwotę: { sumPrice(orders) } zł </p>
+              </div>
               <div className='dashboard-wrapper-time-entries'>
-                { value?.length > 0 ?  value.map((order:any) => {
+                { orders?.length > 0 ?  orders.map((order:any) => {
                   return (
                     <div>
                       <OrderCard order={order}/>

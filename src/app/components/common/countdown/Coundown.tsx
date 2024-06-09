@@ -14,10 +14,10 @@ const Coundown = (props:Props) => {
 
     useEffect(() => {
         if (expiryTimestamp) {
-            timer.start();
+            timer.restart(expiryTimestamp);
         }
             
-    }, [])
+    }, [expiryTimestamp])
   return <div className='countdown'>
     <div className='countdown-entry'>
         <p className='countdown-entry-time'>{ timer.days}</p>

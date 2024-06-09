@@ -33,7 +33,7 @@ const HorizontalProductCard = (props: Props) => {
             <div className='horizontalCard-actions'>
                 <div className='horizontalCard-actions-wrapper'>
                     <div>
-                        <p>x{ quantity ?? 1 }</p>
+
                     </div>
                     <div className='horizontalCard-actions-price'>
                         { product.redeemedPrice ? (

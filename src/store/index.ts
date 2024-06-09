@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 import { authReducer } from "@/store/authSlice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { cartReducer } from "./cartSlice";
+import { appReducer } from "./appSlice";
 
 const createNoopStorage = () => {
   return {
@@ -40,6 +41,7 @@ const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
 const cartPersistedReducer =  persistReducer(cartPersistConfig, cartReducer)
 
 const rootReducer = combineReducers({
+  app: appReducer,
   auth: authPersistedReducer,
   cart: cartPersistedReducer
 });

@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import { ILecture, ILecturePart } from '@/app/utils/models/product';
 import { mediaApi } from '@/app/utils/api/MediaApi';
 import PreviewCard from '@/app/components/common/previewCard/PreviewCard';
+import Link from 'next/link';
 
 interface Props {}
 
@@ -49,6 +50,19 @@ const PlayBack = () => {
         <div className='playback-player-description'>
           <p className='playback-player-description-header'>{ activePart?.attributes.title }</p>
           <p>{lecture?.description}</p>
+        </div>
+        <div className='playback-player-description'>
+          <p className='playback-player-description-header'>Dodatkowe materialy</p>
+          <div className='playback-player-flex'>
+            { activePart?.attributes?.files?.data?.map((file) => {
+              return (  
+                <div className='playback-player-files'>
+                  <div className='playback-player-files-dot'></div>
+                  <p><Link href={file.attributes.url}>{file.attributes.name}</Link></p>
+                </div>
+              )
+            }) }
+          </div>
         </div>
       </div>
       <div className='playback-parts'>

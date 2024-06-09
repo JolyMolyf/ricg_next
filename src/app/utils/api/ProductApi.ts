@@ -32,7 +32,7 @@ const getAllWebinars = async () => {
 }
 
 const getLectureById = (lectureId:string) => {
-    return axios.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/lectures/${lectureId}?populate[0]=coverImage&populate[1]=author.image&populate[2]=lecture_parts.previewImage`).then((res) => {
+    return axios.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/lectures/${lectureId}?populate[0]=coverImage&populate[1]=author.image&populate[2]=lecture_parts.previewImage&populate[3]=lecture_parts.files`).then((res) => {
         return {id: res.data.data.id, ...res.data.data.attributes, type: ProductTypes.lecture}
     }).catch((e) => {
         console.error('error: ', e);
