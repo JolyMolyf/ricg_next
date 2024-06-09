@@ -68,13 +68,13 @@ const EbookPage = (props: Props) => {
       <div className='ebook-body section'>
         <p className='ebook-body-title'>Co znajdziesz w środku?</p>
         <div className='ebook-body-parts'>
-            { ebook?.parts?.map((part:any) => {
+            { ebook?.parts?.map((part:any, index:any) => {
               return (
-            <div className='ebook-body-parts-entry'>
+            <div className='ebook-body-parts-entry' key={index}>
               <p className='ebook-body-parts-entry-title'>{part.title}</p>
-              <div className='ebook-body-parts-entry-body'>{ part?.parts?.map((part:string) => {
+              <div className='ebook-body-parts-entry-body'>{ part?.parts?.map((part:string, index:any) => {
                 return (
-                  <div className='ebook-body-parts-entry-body-wrapper'>
+                  <div className='ebook-body-parts-entry-body-wrapper' key={index}>
                     <div className='ebook-body-parts-entry-body-round'></div>
                     <p>{part}</p>
                   </div>

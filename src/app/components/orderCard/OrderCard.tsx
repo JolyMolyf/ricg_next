@@ -77,29 +77,29 @@ const OrderCard = (props:Props) => {
       <div className='orderCard-body'>
         <p className='orderCard-body-header'>Items: </p>
         <div>
-          { order.attributes?.ebooks.data?.map((ebook) => {
+          { order.attributes?.ebooks.data?.map((ebook, index) => {
             return (
-              <div className='orderCard-body-item'>
+              <div className='orderCard-body-item' key={index}>
                 <p>{ ebook.attributes.title }</p>
                 <p>{ ebook.attributes.price } zł</p>
               </div>
             )
           }) }
 
-          { order.attributes?.lectures.data?.map((lecture) => {
+          { order.attributes?.lectures.data?.map((lecture, index) => {
             return (
-              <div className='orderCard-body-item'>
+              <div className='orderCard-body-item' key={index}>
                 <p>{ lecture.attributes.title }</p>
                 <p>{ lecture.attributes.price } zł</p>
               </div>
             )
           }) }
 
-          { order.attributes?.event_dates.data?.map((event_date) => {
+          { order.attributes?.event_dates.data?.map((event_date, index) => {
 
 
             return (
-              <div className='orderCard-body-item'>
+              <div className='orderCard-body-item' key={index}>
                 <p>{ event_date.attributes.webinar.data.attributes.title }</p>
                 <p>{ moment(event_date.attributes.date).format('MMMM Do hh:mm:ss')}</p>
                 <p>{ event_date.attributes.webinar.data.attributes.price } zł</p>
