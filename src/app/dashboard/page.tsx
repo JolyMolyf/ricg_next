@@ -92,9 +92,9 @@ const Dashboard = () => {
     <div className='dashboard'>
       <p className='main-title'>DashBoard</p>
         <div className='dashboard-wrapper'>
-          {Object.entries(orders).map(([key, orders]) => {
+          {Object.entries(orders).map(([key, orders], index) => {
             return( 
-            <div className='dashboard-wrapper-time'>
+            <div className='dashboard-wrapper-time' key={index}>
               <div className='dashboard-wrapper-time-header'>
                 <p>{key?.match(/[A-Z]?[a-z]+|[0-9]+|[A-Z]+(?![a-z])/g)?.join(" ")}:</p>
                 <p className='dashboard-wrapper-time-header-sum'> Kupione {orders?.length } produktow na kwotę: { sumPrice(orders) } zł </p>
