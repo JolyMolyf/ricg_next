@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/cloudfront-signer"
+
 type ResponseData = {
  url: string,
 }
@@ -14,7 +15,7 @@ const s3 = new S3Client({
   region: process.env.AWS_REGION,
 });
 
-export async function GET(): Promise<ResponseData> {
+export async function GET(): Promise<any> {
   try {
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME!,
