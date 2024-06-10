@@ -13,6 +13,7 @@ import { addToCart } from '@/store/cartSlice'
 import ImageTextSection from '../../sections/imageTextSection/ImageTextSection'
 import { ProductTypes } from '@/app/utils/api/ProductApi'
 import ContentPagePreLoader from '../../preloaders/ContentPagePreloader'
+import Head from 'next/head'
 
 interface Props {
     isSelling: boolean;
@@ -43,6 +44,10 @@ const EbookPage = (props: Props) => {
 
   return ( 
     <div className='ebook'>
+      <Head>
+        <title>{ ebook?.title ?? 'Ebook title' }</title>
+        <meta name="og:image" content={ebook?.coverImage?.data?.attributes?.url} />
+      </Head>
       { !ebook && <ContentPagePreLoader/>}
       <div className='ebook-header section'>
         <div className='ebook-header-section image-section'>

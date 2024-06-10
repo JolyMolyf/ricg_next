@@ -10,6 +10,7 @@ import AuthorSection from "./components/sections/authorSection/AuthorSection";
 import SpecialitySection from "./components/sections/specialitySection/SpecialitySection";
 import TiktokVidsSection from "./components/sections/tiktokSections/TiktokSection";
 import PartnersSection from "./components/sections/partnersSection/PartnersSection";
+import Head from "next/head";
 
 
 export default function Home() {
@@ -29,6 +30,9 @@ export default function Home() {
 
   return (
     <div className="home">
+      <Head>
+        <title>Paulina Szkoli</title>
+      </Head>
       <div className="home-section">
         <HomeHeader/>
         <TargetSection/>
