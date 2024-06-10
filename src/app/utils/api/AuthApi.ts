@@ -13,11 +13,11 @@ const getUserByEmail = () => {
 const registerUser = async (userFields: any) => {
     const username = userFields.firstName + ' ' + userFields.lastName;
 
-    return await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/auth/local/register`, { ...userFields, username });
+    return await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/auth/local/register`, { ...userFields, username });
 }
 
 const logInUser = async (userFields:any) => {
-    return await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/auth/local`, { identifier: userFields.email, password: userFields.password });
+    return await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/auth/local`, { identifier: userFields.email, password: userFields.password });
 }
 
 const authApi:IAuthApi = {

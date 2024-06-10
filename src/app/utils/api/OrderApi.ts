@@ -7,7 +7,7 @@ interface IOrderApi {
 }
 
 const getUserOrderById = async (orderId:string) => {
-    return axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/orders/${orderId}?populate[0]=lectures.coverImage&populate[1]=event_dates.webinar.coverImage&populate=ebooks.coverImage`).then((res) => {
+    return axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/orders/${orderId}?populate[0]=lectures.coverImage&populate[1]=event_dates.webinar.coverImage&populate=ebooks.coverImage`).then((res) => {
         const ebooks =  res.data.data.attributes.ebooks.data;
         const lectures = res.data.data.attributes.lectures.data;
         const webinars = res.data.data.attributes.event_dates.data.map((eventDate:any) => {
@@ -26,7 +26,7 @@ const getUserOrderById = async (orderId:string) => {
 }
 
 const getAllUserOrdersByUserEmail = async (userMail:string) => {
-    return await axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/users/me?populate=*`).then((res) => {
+    return await axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/users/me?populate=*`).then((res) => {
         const orders = res.data.orders;
         if ( orders ) {
             return Promise.all(orders?.map((order:any) => {
@@ -52,7 +52,7 @@ const createOrder = async (user: string, price: number, event_dates?: Array<stri
         }
     }
 
-    const result = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH_LOCAL}/orders`, body);
+    const result = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/orders`, body);
     return result;
 }
 
