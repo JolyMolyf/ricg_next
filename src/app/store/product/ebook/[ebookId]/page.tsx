@@ -1,4 +1,3 @@
-'use client'
 import ebookApi from '@/app/utils/api/EbookApi'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -9,16 +8,12 @@ import EbookPage from '@/app/components/pages/ebookPage/EbookPage'
 
 interface Props {}
 
+export const metadata = {
+  title: 'Demo - Ebook',
+};
+
+
 const EbookPageWrapper = () => {
-
-  const params = useParams();
-  const [ ebook, setEbook ] = useState<IEbook>();
-
-  useEffect(() => {
-    ebookApi.getEbookById(params.ebookId as string  || '').then((res) => {
-      setEbook(res)
-    })
-  }, [])
 
   return (
     <div className=''>
