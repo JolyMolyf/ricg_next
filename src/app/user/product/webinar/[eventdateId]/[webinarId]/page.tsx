@@ -15,7 +15,7 @@ const StoreWebinarPageWrapper = () => {
   
   return (
    <div>
-      <WebinarPage/>
+      <WebinarPage isSelling={false}/>
    </div>
   )
 }
