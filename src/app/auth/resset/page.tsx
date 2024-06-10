@@ -7,7 +7,7 @@ import axios from 'axios';
 
 interface Props {}
 
-const page = () => {
+const Resset = () => {
 
     const [error, setError] = useState<any>();
     const [ info, setInfo ] = useState<string>('Wprowadz swoj email. Do Ciebie zostanie wyslany kod');
@@ -57,4 +57,4 @@ const page = () => {
   </div>
 }
 
-export default page
+export default Resset

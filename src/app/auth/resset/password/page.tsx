@@ -10,7 +10,7 @@ import { loginUser } from '@/store/authSlice';
 
 interface Props {}
 
-const page = () => {
+const RessetPasswordPage = () => {
     
     const [error, setError] = useState<any>();
     const [ info, setInfo ] = useState<string>('Wprowadz nowe Haslo');
@@ -72,4 +72,4 @@ const page = () => {
   )
 }
 
-export default page
+export default RessetPasswordPage
