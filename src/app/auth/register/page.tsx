@@ -8,6 +8,7 @@ import lodash from 'lodash';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '@/store/authSlice';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface IProps {}
 
@@ -20,7 +21,8 @@ interface IFormFields {
 }
 
 const Page = (props:IProps) => {
-
+  
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const [ formFields, setFormFields ] = useState<IFormFields>({
@@ -33,6 +35,7 @@ const Page = (props:IProps) => {
 
   const [ formValidationModel, setFormValidationModel ] = useState<IFormFields>();
   const [ isValid, setIsValid ] = useState<boolean>(false);
+  const [ error, setError] = useState<any>();
 
   const handleInputChange = (fieldName:  string, fieldValue: string) => {
     setFormFields({ ...formFields, [fieldName]: fieldValue })
@@ -57,7 +60,11 @@ const Page = (props:IProps) => {
     const isValid:boolean = validateModel(formFields);
     if (isValid) {
       authApi.registerUser(formFields).then((res) => {
-          dispatch(loginUser(res))
+          dispatch(loginUser(res));
+          router.push('/user');
+      }).catch((e) => {
+        console.error('Error', e);
+        setError(e);
       });
     } 
   }
@@ -83,6 +90,7 @@ const Page = (props:IProps) => {
             <p>Akceptuje <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413715/RICG_regulamin_uwagi_20230821_3853487af0_d7d487b5d2.pdf">Regulamin</Link> i <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413714/RICG_Obowiazek_informacyjny_i_zgody_szkolenie_97b91e88b5.pdf">RODO</Link></p>
           </div>
           { !!formValidationModel?.consest && <label className='input-label-error'>Nie zaznaczona zgoda</label>}
+          <p style={{ color: 'tomato' }}>{ error?.response?.data?.error?.message === 'Invalid identifier or password' ? 'Nieprawidlowe Haslo lub E-mail' : ''}</p>
         </div>
         <Button isDisabled={!isValid} label={'Zarejestruj sie'} onParentClick={onSubmit}/>
       </div>

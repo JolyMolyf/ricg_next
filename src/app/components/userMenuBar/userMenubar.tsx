@@ -36,7 +36,7 @@ const UserMenubar = (props: IUserMenuBarProps) => {
     </div>
     <div  className={`userMenubar-item`} onClick={() => { handleActiveMenuItemChange('webinar') }}>
       <img className='userMenubar-item-icon' src='/images/icons/webianr_icon.png'/>
-      <p className='userMenubar-item-title'>Webinary</p>
+      <p className='userMenubar-item-title'>Konsultacje</p>
       <p className='userMenubar-item-count'>{webinars?.length}</p>
       { activeMenuItem === 'webinar' && <div className='userMenubar-item-border'/>}
     </div>

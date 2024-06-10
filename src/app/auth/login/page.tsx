@@ -33,6 +33,7 @@ const Page = (props: IProps) => {
     });
 
     const [ isValid, setIsValid ] = useState<boolean>(false);
+    const [ error, setError ] = useState<any>();
 
     const validateModel = (formFields:ILoginFields) => {
       const validationResult =  {
@@ -52,10 +53,14 @@ const Page = (props: IProps) => {
     }
 
     const onSubmit = (e:any) =>  {
+      setError(null);
       if ( validateModel(formFields) ) {
         authApi.logInUser(formFields).then((res) => {
           dispatch(loginUser(res))
           router.push('/user');
+        }).catch((e) => {
+          console.error('Error', e);
+          setError(e);
         });
       }
     }
@@ -69,6 +74,7 @@ const Page = (props: IProps) => {
       <div className='form-wrapper'>
         <TextInput className='form-wrapper-input' onParentChange={handleInputChange} name='email' value={formFields.email} label='Email' error={validationModel.email}/>
         <TextInput className='form-wrapper-input' onParentChange={handleInputChange} name='password' value={formFields.password} label='Password' type='password' error={validationModel.password}/>
+        <p style={{ color: 'tomato' }}>{ error?.response?.data?.error?.message === 'Invalid identifier or password' ? 'Nieprawidlowe Haslo lub E-mail' : ''}</p>
         <div className='form-wrapper-link'>
             <Link href='/auth/resset'>
               <p>Zapomniales Haslo?</p>
