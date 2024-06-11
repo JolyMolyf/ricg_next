@@ -30,7 +30,7 @@ const Resset = () => {
     const handleSubmit = () => {
         if ( formFields.email !== '' ) {
             setCurentStep(currentStep + 1);
-            axios.post('http://localhost:3000/api/mail', { email: formFields.email });
+            axios.post('/api/mail', { email: formFields.email });
         } else {
             setValidationModel({...validationModel, email: 'Wprowadz email'})
         }
