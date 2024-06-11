@@ -59,6 +59,8 @@ const WebinarPage = (props: Props) => {
   
   }, [])
 
+  console.log(product);
+
   const handleAddToCart = () => {
     if (isSelling) {
       if (product) {
@@ -96,7 +98,7 @@ const WebinarPage = (props: Props) => {
             </div>
           </div>
           <div className='userWebinar-header-right-action'>
-            { !isSelling && <Button label='Przedz do eventu' onParentClick={() => { window.location.assign( product?.url || '') }} />}
+            { !isSelling && <Button label='Przedz do eventu' onParentClick={() => { window.location.assign( eventDate?.url || '') }} />}
             { isSelling && (
               <div className='userWebinar-header-right-action-price'>
                  <PriceDisplay price={product?.price} redeemedPrice={product?.redeemedPrice} />

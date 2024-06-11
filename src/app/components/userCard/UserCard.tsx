@@ -4,13 +4,17 @@ import './userCardStyles.scss';
 import Button from '../common/inputs/button/Button';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '@/store/authSlice';
+import { IEbook, ILecture, IProduct } from '@/app/utils/models/product';
 
 interface IUserCardProps {
     user: IUser | null;
+    lectures?: Array<IProduct>
+    ebooks?: Array<IProduct>
+    webinars?: Array<any>
 }
 
 const UserCard = (props: IUserCardProps) => {
-    const { user } = props;
+    const { user, webinars, ebooks, lectures } = props;
 
     const dispatch = useDispatch();
 
@@ -30,26 +34,26 @@ const UserCard = (props: IUserCardProps) => {
         <div className='userCard-stats'>
             <div className='userCard-stats-item'>
                 <div className='userCard-stats-item-header'>
-                    2
+                    {lectures?.length}
                 </div>
                 <div className='userCard-stats-item-text'>
-                    Courses
+                    Szkoleń
                 </div>
             </div>
             <div className='userCard-stats-item'>
                 <div className='userCard-stats-item-header'>
-                    2
+                    {ebooks?.length}
                 </div>
                 <div className='userCard-stats-item-text'>
-                    Completed
+                    E-bookow
                 </div>
             </div>
             <div className='userCard-stats-item'>
                 <div className='userCard-stats-item-header'>
-                    2
+                    {webinars?.length}
                 </div>
                 <div className='userCard-stats-item-text'>
-                    In progress
+                    Konsultacje
                 </div>
             </div>
         </div>

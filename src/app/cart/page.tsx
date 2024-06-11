@@ -39,12 +39,12 @@ const Cart = (props:Props) => {
   const handlePayment = async () => {
     if ( isAuthenticated && user ) {
       orderApi.getAllUserOrdersByUserEmail(user.email).then((orders:any) => {
-        console.log(orders);
 
         const allProducts = orders.reduce((acc:any, order:any) => {
           const tmpAcc = {...acc};
+
           tmpAcc.ebooks = tmpAcc.ebooks.concat(order.products.ebooks);
-          tmpAcc.lectures = tmpAcc.lectures.concat(order.products.ebooks);
+          tmpAcc.lectures = tmpAcc.lectures.concat(order.products.lectures);
           tmpAcc.webinars = tmpAcc.webinars.concat(order.products.webinars);
 
           return tmpAcc;
@@ -54,11 +54,9 @@ const Cart = (props:Props) => {
           webinars: [],
          })
 
-        console.log(allProducts);
-
-        const alreadyBoughtItems =  items.filter((item) => {
-          console.log('Item: ', item)
+        const alreadyBoughtItems = items.filter((item) => {
           switch (item.product.type) {
+            
             case ProductTypes.ebook: {
               return !allProducts.ebooks.map((ebook:any) => ebook.id).includes(item.product.id)
             }
@@ -68,12 +66,11 @@ const Cart = (props:Props) => {
             }
 
             case ProductTypes.webinar: {
-              return allProducts.webinars.map((webinar:any) => webinar.id).includes((id:any) =>  item.product.selectedDate.value);
+              return !allProducts.webinars.map((webinar:any) => webinar.id).includes((id:any) =>  item.product.selectedDate.value);
             }
           }
         }) 
         
-        console.log(alreadyBoughtItems, items);
         if ( alreadyBoughtItems.length < items.length ) {
           dispatch(openCloseAlreadyBoughtNotification())
           const payload = alreadyBoughtItems.map((item) => ({quantity: 1, product: {...item}}))

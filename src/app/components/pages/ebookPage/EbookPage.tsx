@@ -41,6 +41,7 @@ const EbookPage = (props: Props) => {
     }
   }
 
+  console.log(ebook);
 
   return ( 
     <div className='ebook'>

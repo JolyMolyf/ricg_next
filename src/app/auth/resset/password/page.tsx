@@ -31,8 +31,6 @@ const RessetPasswordPage = () => {
         setFormFields({ ...formFields, [fieldName]: fieldValue })
     }
 
-    console.log(searchParmas.get('code') as string);
-
     const handleSubmit = () => {
         if  (formFields.password !== '') {
             if ( formFields.passwordConfirmation !== '' ) {

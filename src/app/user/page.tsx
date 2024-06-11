@@ -92,7 +92,7 @@ const Page = (props:IUserPageProps) => {
     <div className='userPage'>
       <div id='userPage-right' className='userPage-section'>
         <div className='userPage-section-item'>
-          <UserCard user={user}/>
+          <UserCard webinars={webinars} ebooks={ebooks} lectures={lectures} user={user}/>
         </div>
         <div className='userPage-section-item'>
           <UserMenubar ebooks={ebooks} lectures={lectures} webinars={webinars} parentActiveMenuItem={activeMenuItem} setParentActiveMenuItem={setActiveMenuItem}/>

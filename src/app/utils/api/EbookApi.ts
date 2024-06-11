@@ -4,7 +4,7 @@ import { ProductTypes } from "./ProductApi";
 
 const getEbookById = async (id: string) => {
 
-    return axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/ebooks/${id}?populate[0]=author.image&populate[1]=coverImage`).then((ebookRes) => {
+    return axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/ebooks/${id}?populate[0]=author.image&populate[1]=coverImage&populate[2]=content`).then((ebookRes) => {
         const fetchedEbook = {id: ebookRes.data.data.id, ...ebookRes.data.data.attributes, type: ProductTypes.ebook};
         return fetchedEbook;
     })
