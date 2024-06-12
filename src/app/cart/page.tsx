@@ -78,7 +78,7 @@ const Cart = (props:Props) => {
         }
 
         if (alreadyBoughtItems.length !== 0) {
-          axiosInterceptorInstance.post('http://localhost:3000/api/payments', {
+          axiosInterceptorInstance.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/api/payments`, {
             products: items,
             user
           }).then(async (session) => {
