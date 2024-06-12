@@ -21,7 +21,7 @@ interface IUserPageProps {
 }
 
 const menuItems:any = {
-  webinar: 'Webinary',
+  webinar: 'Konsultacje',
   lecture: 'Szkolenie',
   ebook: 'E-booki'
 }
@@ -107,20 +107,20 @@ const Page = (props:IUserPageProps) => {
             ...(product as any).attributes,
             id: product.id,
           }
-          if ( product.attributes.webinar ) {
+          if ( product && product.attributes && product.attributes.webinar ) {
             mergedObject = {
               ...mergedObject, 
-              coverImage: product.attributes.webinar.data.attributes.coverImage.data.attributes.url, 
-              title: product.attributes.webinar.data.attributes.title, 
-              description: product.attributes.webinar.data.attributes.description,
-              price: product.attributes.webinar.data.attributes.price,
-              redeemedPrice: product.attributes.webinar.data.attributes.redeemedPrice,
-              cardPoints: product.attributes.webinar.data.attributes.cardPoints,
-              date: product.attributes.date,
-              webinarId:  product.attributes.webinar.data.id
+              coverImage: product?.attributes?.webinar?.data?.attributes?.coverImage?.data?.attributes?.url, 
+              title: product?.attributes?.webinar?.data?.attributes?.title, 
+              description: product?.attributes?.webinar?.data?.attributes?.description,
+              price: product?.attributes?.webinar?.data?.attributes?.price,
+              redeemedPrice: product?.attributes?.webinar?.data?.attributes?.redeemedPrice,
+              cardPoints: product?.attributes?.webinar?.data?.attributes?.cardPoints,
+              date: product?.attributes?.date,
+              webinarId:  product?.attributes?.webinar?.data?.id
             }
           } else {
-            mergedObject = { ...mergedObject, ...product.attributes, coverImage: product.attributes.coverImage.data.attributes.url}
+            mergedObject = { ...mergedObject, ...product?.attributes, coverImage: product?.attributes?.coverImage?.data?.attributes?.url}
           }
          
           return (

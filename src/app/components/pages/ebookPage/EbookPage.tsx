@@ -93,7 +93,7 @@ const EbookPage = (props: Props) => {
       </div>
       <div className='ebook-author section'>
         <div className='ebook-author-title'>O Autorze</div>    
-        <AuthorCard author={ebook?.author.data.attributes}/>
+        <AuthorCard author={ebook?.author?.data?.attributes}/>
       </div>
     </div>
   )

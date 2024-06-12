@@ -18,6 +18,7 @@ const Store = () => {
   const [ webinars, setWebinars ] = useState<Array<IWebinar>>([]);
   const [ activeMenuItem, setActiveMenuItem ] = useState<any>('lecture');
   const [activeProductList, setActiveProductList] = useState<Array<any>>();
+  const [isLoading, setIsLoading]= useState<boolean>(false);
   
   const router = useRouter();
 
@@ -26,17 +27,17 @@ const Store = () => {
   }
 
   useEffect(() => {
-      productApi.getAllLectures().then((res) => {
-        setLectures(res);
-        setActiveProductList(res);
-      })
-
-      productApi.getAllEbooks().then((res) => {
-        setEbooks(res)
-      })
-
-      productApi.getAllWebinars().then((res) => {
-        setWebinars(res)
+      setIsLoading(true);
+      Promise.all([productApi.getAllLectures(), productApi.getAllEbooks(), productApi.getAllWebinars()]).then((res) => {
+        console.log(res);
+        setLectures(res[0]);
+        setEbooks(res[1]);
+        setWebinars(res[2]);
+        setActiveProductList(res[0]);
+        setIsLoading(false)
+      }).catch((e:any) => {
+        console.log('error: ', e);
+        setIsLoading(false)
       })
   }, [])
 
@@ -73,7 +74,7 @@ const Store = () => {
   
   return (
     <div>
-    {  ebooks.length === 0 || lectures.length === 0 || webinars.length === 0 ? <MultipleItemPagePreLoader/> : ( 
+    {  isLoading ? <MultipleItemPagePreLoader/> : ( 
       <div  className='store'>
       <UserMenubar ebooks={ebooks} lectures={lectures} webinars={webinars} parentActiveMenuItem={activeMenuItem} setParentActiveMenuItem={handleActiveMenuItemChange}/>
        <div className='store-products'>
