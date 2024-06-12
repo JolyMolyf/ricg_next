@@ -59,7 +59,7 @@ const getWebinarByEventDateId =  (eventDateId: string) => {
 }
 
 const getAllOrders = () => {
-    return axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/orders?populate[0]=lectures&populate[1]=ebooks&populate[2]=event_dates.webinar&populate[3]=user`).then((res) => {
+    return axiosInterceptorInstance.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/orders?populate[0]=lectures&populate[1]=ebooks&populate[2]=event_dates.webinar&populate[3]=user&populate[4]=webinar.coverImage`).then((res) => {
         return res.data.data
     })
 }

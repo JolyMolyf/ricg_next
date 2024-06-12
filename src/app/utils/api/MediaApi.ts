@@ -5,7 +5,7 @@ interface IMediaApi {
 }
 
 const getVideoUrl = async (key:any) => {
-    const url:any = await axios.get('http://localhost:3000/api/content');
+    const url:any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/content`);
     return url.data;
 }
 

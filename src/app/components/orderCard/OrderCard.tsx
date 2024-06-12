@@ -100,9 +100,9 @@ const OrderCard = (props:Props) => {
 
             return (
               <div className='orderCard-body-item' key={index}>
-                <p>{ event_date.attributes.webinar.data.attributes.title }</p>
-                <p>{ moment(event_date.attributes.date).format('MMMM Do hh:mm:ss')}</p>
-                <p>{ event_date.attributes.webinar.data.attributes.price } zł</p>
+                <p>{ event_date?.attributes?.webinar?.data?.attributes?.title }</p>
+                <p>{ moment(event_date?.attributes?.date).format('MMMM Do hh:mm:ss')}</p>
+                <p>{ event_date?.attributes?.webinar?.data?.attributes?.price } zł</p>
               </div>
             )
           }) }

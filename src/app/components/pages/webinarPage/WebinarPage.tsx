@@ -50,7 +50,7 @@ const WebinarPage = (props: Props) => {
     } else {
       WebinarApi.getWebinarById(params.webinarId as string).then((res) => {
           setProduct(res);
-          const dates = res.event_dates?.data?.map((date:any) => ({ value: date.id, label: moment(date.attributes.date).format('MMMM Do YYYY')}));
+          const dates = res.event_dates?.data?.map((date:any) => ({ value: date.id, label: moment(date.attributes.date).format('MMMM Do YYYY HH:mm:ss')}));
           setAvailableDates(dates)
           setSelectedCardDate(dates?.[0])
       })
@@ -58,8 +58,6 @@ const WebinarPage = (props: Props) => {
    
   
   }, [])
-
-  console.log(product);
 
   const handleAddToCart = () => {
     if (isSelling) {

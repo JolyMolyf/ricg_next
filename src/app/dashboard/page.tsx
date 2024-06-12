@@ -32,6 +32,7 @@ const Dashboard = () => {
         lastYear: [],
         old: [],
       };
+
       res.map((order:any) => {
         const orderDate = order.attributes.createdAt;
         if ( moment(orderDate).isAfter(moment().startOf('day')) ) {
@@ -69,7 +70,8 @@ const Dashboard = () => {
   }, [])
 
   const sumPrice = useCallback((orders:Array<any>) => {
-    const ordersSum:number = orders.reduce((acc, order) => {
+    const ordersSum:number = orders?.reduce((acc, order) => {
+
       const ebookSum = order.attributes.ebooks.data.reduce ((acc:any, ebook:any) => {
         return ebook.attributes.price  + acc;
       }, 0)
@@ -78,15 +80,16 @@ const Dashboard = () => {
         return ebook.attributes.price  + acc;
       }, 0)
 
-      const eventDatesSum = order.attributes.event_dates.data?.reduce ((acc:any, ebook:any) => {
+      const eventDatesSum = order?.attributes?.event_dates?.data?.reduce ((acc:any, ebook:any) => {
+        console.log(ebook);
         return ebook?.attributes?.webinar?.data?.attributes?.price + acc;
       }, 0)
 
-      return acc + ebookSum + lectureSum + eventDatesSum;
+      return acc + ebookSum + lectureSum + eventDatesSum || 0;
     }, 0)
 
     return ordersSum;
-  }, [])
+  }, [orders])
 
   return (
     <div className='dashboard'>
@@ -100,7 +103,7 @@ const Dashboard = () => {
                 <p className='dashboard-wrapper-time-header-sum'> Kupione {orders?.length } produktow na kwotę: { sumPrice(orders) } zł </p>
               </div>
               <div className='dashboard-wrapper-time-entries'>
-                { orders?.length > 0 ?  orders.map((order:any, index) => {
+                { orders?.length > 0 ?  orders?.map((order:any, index) => {
                   return (
                     <div key={index}>
                       <OrderCard order={order}/>
