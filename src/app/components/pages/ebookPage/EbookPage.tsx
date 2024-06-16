@@ -68,7 +68,7 @@ const EbookPage = (props: Props) => {
         </div>
       </div>
       <div className='ebook-audience section'>
-        <div className='ebook-author-title'>Dla kogo jest ta ksiazka</div>  
+        <div className='ebook-author-title'>Dla kogo jest ta książka</div>  
         <ImageTextSection reverse={true} text={ebook?.audience || ''} title={''} imageLink={'https://res.cloudinary.com/dtb1fvbps/image/upload/v1690722537/boy_Illustration_d1c929c3fa.svg'}  />
       </div>
       <div className='ebook-body section'>

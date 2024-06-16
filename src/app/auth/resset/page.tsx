@@ -10,7 +10,7 @@ interface Props {}
 const Resset = () => {
 
     const [error, setError] = useState<any>();
-    const [ info, setInfo ] = useState<string>('Wprowadz swoj email. Do Ciebie zostanie wyslany kod');
+    const [ info, setInfo ] = useState<string>('Wprowadź swój email. Zostanie na niego wysłany kod do odzyskania hasła.');
     const [ currentStep, setCurentStep ] = useState<number>(1);
     const [ isValid, setIsValid ] = useState<boolean>(false);
     const [ validationModel, setValidationModel ] = useState<any>({
@@ -39,7 +39,7 @@ const Resset = () => {
 
   return <div className='reset'>
     <div className='reset-form-header'>
-            <h1>Zresetuj Haslo</h1>
+            <h1>Zresetuj hasło</h1>
             <p>{info}</p>
         </div>
     { currentStep === 1 && 

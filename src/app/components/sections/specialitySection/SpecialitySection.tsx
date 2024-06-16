@@ -22,7 +22,7 @@ const SpecialitySection = (props:ICarosuelProps) => {
 
     return(
         <div className="specialitySection">
-            <p className="specialitySection-title">{"Co wyroznia nasz Projekt"}</p>
+            <p className="specialitySection-title">{"Co wyróżnia nasz Projekt"}</p>
             <div className='specialitySection-wrapper'>
                 { percItems?.map((perc, index: number) => {
                     return(

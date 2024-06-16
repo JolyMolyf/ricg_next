@@ -22,7 +22,7 @@ const AlreadyInCartPopUp = () => {
         { isAlredyInCartOpen ? 
         <div className='alreadyInCartPopUp'>
             <div className='alreadyInCartPopUp-wrapper'>
-                <p className='alreadyInCartPopUp-wrapper-header'>Produkt juz dodany do koszyku</p>
+                <p className='alreadyInCartPopUp-wrapper-header'>Produkt jest już w koszyku</p>
                 <div className='alreadyInCartPopUp-wrapper-actions'>
                     <Button label='Zamknij' onParentClick={handleClose}/>
                 </div>

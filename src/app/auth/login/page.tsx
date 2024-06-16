@@ -69,7 +69,7 @@ const Page = (props: IProps) => {
     <div className='form'>
       <div className='form-header'>
         <h1>Welcome!</h1>
-        <p>Zaloguj sie zeby miec dostep do swoich produktow</p>
+        <p>Zaloguj się, żeby mieć dostęp do swoich produktów</p>
       </div>
       <div className='form-wrapper'>
         <TextInput className='form-wrapper-input' onParentChange={handleInputChange} name='email' value={formFields.email} label='Email' error={validationModel.email}/>
@@ -77,7 +77,7 @@ const Page = (props: IProps) => {
         <p style={{ color: 'tomato' }}>{ error?.response?.data?.error?.message === 'Invalid identifier or password' ? 'Nieprawidlowe Haslo lub E-mail' : ''}</p>
         <div className='form-wrapper-link'>
             <Link href='/auth/resset'>
-              <p>Zapomniales Haslo?</p>
+              <p>Zapomniałeś hasła?</p>
             </Link>
           </div>
         <Button label={'Zaloguj sie'} onParentClick={onSubmit}/>

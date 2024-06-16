@@ -100,7 +100,7 @@ const Cart = (props:Props) => {
 
   return (
     <div className='cart'>
-      <p className='cart-header'>Kupione Produkty</p>
+      <p className='cart-header'>Koszyk</p>
       <div className='cart-container'>
         <div className='cart-container-items'>
           { items.map((item:CartItem, key:number) => {

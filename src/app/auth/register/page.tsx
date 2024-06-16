@@ -73,7 +73,7 @@ const Page = (props:IProps) => {
     <div className='form'>
       <div className='form-header'>
         <h1>Welcome!</h1>
-        <p>Zarejestruj sie zeby miec dostep do swoich produktow</p>
+        <p>Zarejestruj się, żeby kupić produkty</p>
       </div>
       <div className='form-wrapper'>
         <div className='form-wrapper-double'>
@@ -87,12 +87,12 @@ const Page = (props:IProps) => {
             <input checked={!!formFields.consest} name='consest' type='checkbox' onChange={(e) => {
               setFormFields({...formFields, consest: !formFields.consest})
             }}/>
-            <p>Akceptuje <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413715/RICG_regulamin_uwagi_20230821_3853487af0_d7d487b5d2.pdf">Regulamin</Link> i <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413714/RICG_Obowiazek_informacyjny_i_zgody_szkolenie_97b91e88b5.pdf">RODO</Link></p>
+            <p>Akceptuję <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413715/RICG_regulamin_uwagi_20230821_3853487af0_d7d487b5d2.pdf">Regulamin</Link> i <Link href="https://res.cloudinary.com/dtb1fvbps/image/upload/v1717413714/RICG_Obowiazek_informacyjny_i_zgody_szkolenie_97b91e88b5.pdf">RODO</Link></p>
           </div>
           { !!formValidationModel?.consest && <label className='input-label-error'>Nie zaznaczona zgoda</label>}
           <p style={{ color: 'tomato' }}>{ error?.response?.data?.error?.message === 'Invalid identifier or password' ? 'Nieprawidlowe Haslo lub E-mail' : ''}</p>
         </div>
-        <Button isDisabled={!isValid} label={'Zarejestruj sie'} onParentClick={onSubmit}/>
+        <Button isDisabled={!isValid} label={'Zarejestruj się'} onParentClick={onSubmit}/>
       </div>
       <div className='form-wrapper-footer'>
         <Link href='/auth/login'>

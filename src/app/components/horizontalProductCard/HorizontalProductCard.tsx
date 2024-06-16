@@ -52,7 +52,7 @@ const HorizontalProductCard = (props: Props) => {
                         }
                     </div>
                 </div>
-                <Button onParentClick={handleRemoveFromCard} className='horizontalCard-actions-buttons' label='Usun'/>
+                <Button onParentClick={handleRemoveFromCard} className='horizontalCard-actions-buttons' label='Usuń'/>
             </div>
         </div>
   )

@@ -90,7 +90,7 @@ const WebinarPage = (props: Props) => {
             <p>{ product?.description}</p>
           </div>
           <div className='userWebinar-header-right-timer'>
-            <p className='userWebinar-header-right-timer-header'>Zostalo do wydarzenia</p>
+            <p className='userWebinar-header-right-timer-header'>Do wydarzenia zostało</p>
             <div className='userWebinar-header-right-timer-countdown'>
               { product && <Coundown expiryTimestamp={(moment(product?.event_dates?.data?.find((e) => e.id === selectedCardDate?.value ).attributes.date ?? eventDate?.date))?.toDate()}/>}
             </div>
@@ -107,11 +107,11 @@ const WebinarPage = (props: Props) => {
         </div>
       </div>
       <div className='ebook-audience section'>
-      <div className='ebook-author-title main-title'>Dla kogo jest ten webinar</div>  
+      <div className='ebook-author-title main-title'>Dla kogo są te konsultacje</div>  
       <ImageTextSection reverse={true} text={product?.audience || ''} title={''} imageLink={'https://res.cloudinary.com/dtb1fvbps/image/upload/v1690722537/boy_Illustration_d1c929c3fa.svg'}  />
     </div>
       <div className='userWebinar-body'>
-        <p className="userWebinar-body-header main-title">Czego się nauczysz na webinarze?</p>
+        <p className="userWebinar-body-header main-title">Czego się nauczysz na konsultacji?</p>
         <div className='userWebinar-body-points section'>
           { Object.values(product?.bulletPoints|| {})?.map((point:any, index:number) => {
             const { label, value } = point;

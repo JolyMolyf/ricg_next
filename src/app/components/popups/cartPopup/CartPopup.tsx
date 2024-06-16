@@ -29,9 +29,9 @@ const CartPopup = (props:Props) => {
     <div>
         { isAlredyInCartOpen ? '' : <Modal close={handleModalClose}>
             <div className='cart-modal'>
-                    <p className="cart-modal-header">Dodano do koszyka!</p>
+                    <p className="cart-modal-header">Dodano do koszyka</p>
                     <p className="cart-modal-body">
-                    Dodales do koszyka webinar: { title }
+                        Dodano do koszyka { title }
                     </p>
                     <div className="cart-modal-actions">
                     <div className="cart-modal-actions-buttons" >
