@@ -5,13 +5,17 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Button from '../../common/inputs/button/Button';
 import PriceDisplay from '../../common/priceDisplay/PriceDisplay';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '@/store/cartSlice';
 import ImageTextSection from '../../sections/imageTextSection/ImageTextSection';
 import ProductPart from '../../productPart/ProductPart';
 import './lecturePageStyles.scss';
 import AuthorCard from '../../common/authorCard/AuthorCard';
 import ContentPagePreLoader from '../../preloaders/ContentPagePreloader';
+import AddedIntoAccountPopUp from '../../popups/addedIntoAccount/AddedIntoAccountPopUp';
+import CartPopup from '../../popups/cartPopup/CartPopup';
+import { orderApi } from '@/app/utils/api/OrderApi';
+import { RootState } from '@/store';
 interface Props {
   isSelling:boolean
 }
@@ -19,7 +23,10 @@ interface Props {
 const LecutrePage = (props:Props) => {
   
   const { isSelling } = props;
+  const user = useSelector((state:RootState) => state.auth.user);
   const [ lecture, setLecture ] = useState<ILecture>();
+  const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+  const [ isAddedModalOpen, setIsAddedModalOpen ] = useState<boolean>(false);
   
   const params = useParams();
   const dispatch = useDispatch();
@@ -33,11 +40,33 @@ const LecutrePage = (props:Props) => {
   }, [])
 
   const handleAddToCart = () => {
-    dispatch(addToCart({...lecture, type: ProductTypes.lecture}))
-  }
 
+     if (isSelling) {
+      
+      if (lecture) {
+        if (lecture.price === 0 || lecture.redeemedPrice === 0) {
+          if (user && lecture?.id && user?.id) {
+                      orderApi.createOrder(user.id, 0, [], [], [lecture.id]);
+                      setIsAddedModalOpen(true);
+              
+          } else {
+              router.push('/login')
+          }
+      } else {
+          setIsModalOpen(true);
+          dispatch(addToCart({...lecture, type: ProductTypes.lecture}))
+      }
+        
+      }
+    }
+  }
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+}
   return (
     <div className='lecture'>
+        {isModalOpen && <CartPopup handleClose={handleCloseModal} title={lecture?.title || ''} />}
+        {isAddedModalOpen && <AddedIntoAccountPopUp handleClose={() => {setIsAddedModalOpen(false)}}/>}
       { !lecture && <ContentPagePreLoader/>}
       <div className='lecture-header section'>
         <div className='lecture-header-section image-section'>

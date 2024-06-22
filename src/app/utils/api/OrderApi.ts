@@ -51,7 +51,6 @@ const createOrder = async (user: string, price: number, event_dates?: Array<stri
            
         }
     }
-
     const result = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_PATH}/orders`, body);
     return result;
 }

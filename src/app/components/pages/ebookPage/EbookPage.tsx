@@ -1,19 +1,23 @@
 'use client'
 
 import ebookApi from '@/app/utils/api/EbookApi'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import './ebookPageStyles.scss'
 import React, { useEffect, useState } from 'react'
 import Button from '@/app/components/common/inputs/button/Button'
 import AuthorCard from '@/app/components/common/authorCard/AuthorCard'
 import { IEbook } from '@/app/utils/models/product'
 import PriceDisplay from '../../common/priceDisplay/PriceDisplay';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '@/store/cartSlice'
 import ImageTextSection from '../../sections/imageTextSection/ImageTextSection'
 import { ProductTypes } from '@/app/utils/api/ProductApi'
 import ContentPagePreLoader from '../../preloaders/ContentPagePreloader'
 import Head from 'next/head'
+import { orderApi } from '@/app/utils/api/OrderApi'
+import { RootState } from '@/store'
+import CartPopup from '../../popups/cartPopup/CartPopup'
+import AddedIntoAccountPopUp from '../../popups/addedIntoAccount/AddedIntoAccountPopUp'
 
 interface Props {
     isSelling: boolean;
@@ -25,7 +29,12 @@ const EbookPage = (props: Props) => {
 
   const params = useParams();
   const dispatch = useDispatch();
+  const router = useRouter();
+  const user = useSelector((state:RootState) => state.auth.user)
+  
   const [ ebook, setEbook ] = useState<IEbook>();
+  const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+  const [ isAddedModalOpen, setIsAddedModalOpen ] = useState<boolean>(false);
 
   useEffect(() => {
     ebookApi.getEbookById(params.ebookId as string  || '').then((res) => {
@@ -36,15 +45,27 @@ const EbookPage = (props: Props) => {
   const handleAddToCart = () => {
     if (isSelling) {
       if (ebook) {
+        if (ebook.price === 0 || ebook.redeemedPrice === 0) {
+          if (user && ebook.id && user.id) {
+            orderApi.createOrder(user.id, 0, [], [], [ebook.id]);
+            setIsAddedModalOpen(true);
+          } else {
+            router.push('/login');
+          }
+        } else {
           dispatch(addToCart({...ebook, type: ProductTypes.ebook}))
+        }
       }
     }
   }
 
-  console.log(ebook);
-
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+}
   return ( 
     <div className='ebook'>
+         {isModalOpen && <CartPopup handleClose={handleCloseModal} title={ebook?.title || ''} />}
+         {isAddedModalOpen && <AddedIntoAccountPopUp handleClose={() => {setIsAddedModalOpen(false)}}/>}
       <Head>
         <title>{ ebook?.title ?? 'Ebook title' }</title>
         <meta name="og:image" content={ebook?.coverImage?.data?.attributes?.url} />

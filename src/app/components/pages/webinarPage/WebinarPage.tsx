@@ -19,6 +19,9 @@ import AuthorCard from '../../common/authorCard/AuthorCard';
 import ImageTextSection from '../../sections/imageTextSection/ImageTextSection';
 import { ProductTypes } from '@/app/utils/api/ProductApi';
 import ContentPagePreLoader from '../../preloaders/ContentPagePreloader';
+import { orderApi } from '@/app/utils/api/OrderApi';
+import AddedIntoAccountPopUp from '../../popups/addedIntoAccount/AddedIntoAccountPopUp';
+import CartPopup from '../../popups/cartPopup/CartPopup';
 
 interface Props {
   isSelling: boolean;
@@ -30,12 +33,15 @@ const WebinarPage = (props: Props) => {
   const params = useParams();
   const user = useSelector((state:RootState) => state.auth.user);
   const isAuthenticated = useSelector((state:RootState) => state.auth.authState )
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState<IWebinar>();
   const [ eventDate, setEventDate ] = useState<EventDate>();
   const [ selectedCardDate, setSelectedCardDate ] = useState<any>();
   const [ availableDates, setAvailableDates ] = useState<Array<any>>([]);
+  const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+  const [ isAddedModalOpen, setIsAddedModalOpen ] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isSelling && (!isAuthenticated || !user)) {
@@ -61,8 +67,21 @@ const WebinarPage = (props: Props) => {
 
   const handleAddToCart = () => {
     if (isSelling) {
+      
       if (product) {
+        if (product.price === 0 || product.redeemedPrice === 0) {
+          if (user && product.id && user.id) {
+                      orderApi.createOrder(user.id, 0, [selectedCardDate?.value], [], []);
+                      setIsAddedModalOpen(true);
+              
+          } else {
+              router.push('/login')
+          }
+      } else {
+          setIsModalOpen(true);
           dispatch(addToCart({...product, selectedDate: selectedCardDate, type: ProductTypes.webinar}))
+      }
+        
       }
     }
   }
@@ -70,9 +89,14 @@ const WebinarPage = (props: Props) => {
   const handleDropDownChange = (e:any) => {
     setSelectedCardDate(e);   
   }
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+}
 
   return (
     <div className='userWebinar'>
+      {isModalOpen && <CartPopup handleClose={handleCloseModal} title={product?.title || ''} />}
+      {isAddedModalOpen && <AddedIntoAccountPopUp handleClose={() => {setIsAddedModalOpen(false)}}/>}
       { !product && <ContentPagePreLoader/> }
       <div className='userWebinar-header'>
         <div className='userWebinar-header-image'>

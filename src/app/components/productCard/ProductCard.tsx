@@ -4,10 +4,14 @@ import moment from 'moment';
 import Button from '../common/inputs/button/Button';
 import { useRouter } from 'next/navigation'
 import { IWebinar, ILecture, IEbook, IProduct } from '../../utils/models/product'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '@/store/cartSlice';
 import Dropdown from 'react-dropdown';
 import CartPopup from '../popups/cartPopup/CartPopup';
+import { orderApi } from '@/app/utils/api/OrderApi';
+import { RootState } from '@/store';
+import { ProductTypes } from '@/app/utils/api/ProductApi';
+import AddedIntoAccountPopUp from '../popups/addedIntoAccount/AddedIntoAccountPopUp';
 
 interface IProps {
     product: IWebinar | ILecture | IEbook | IProduct;
@@ -18,20 +22,44 @@ interface IProps {
 
 const ProductCard = (props:IProps) => {
     
-    const { product, isSellingMode, onClick } = props;
+    const { product, isSellingMode, cardType, onClick } = props;
 
     const dispatch = useDispatch();
     const router = useRouter();
+    const user = useSelector((state:RootState) => state.auth.user)
 
     const [ selectedCardDate, setSelectedCardDate ] = useState<any>();
     const [availableDates, setAvailableDates] = useState<Array<any>>([]);
     const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+    const [ isAddedModalOpen, setIsAddedModalOpen ] = useState<boolean>(false);
 
     const handleButtonClick = (e:any) => {
         if (isSellingMode) {
             if (product) {
-                setIsModalOpen(true);
-                dispatch(addToCart({...product, selectedDate: selectedCardDate}))
+                if (product.price === 0 || product.redeemedPrice === 0) {
+                    if (user && product.id && user.id) {
+                        switch (product.type) {
+                            case ProductTypes.ebook: 
+                                orderApi.createOrder(user.id, 0, [], [], [product.id]);
+                                setIsAddedModalOpen(true);
+                                break;
+                            case ProductTypes.lecture: 
+                                orderApi.createOrder(user.id, 0, [], [product.id], []);
+                                setIsAddedModalOpen(true);
+                                break;
+                            case ProductTypes.webinar: 
+                                orderApi.createOrder(user.id, 0, [selectedCardDate?.value], [], []);
+                                setIsAddedModalOpen(true);
+                                break;
+                        }
+                        
+                    } else {
+                        router.push('/login')
+                    }
+                } else {
+                    setIsModalOpen(true);
+                    dispatch(addToCart({...product, selectedDate: selectedCardDate}))
+                }
             }
         } else {
             onClick?.(product, selectedCardDate);
@@ -64,7 +92,8 @@ const ProductCard = (props:IProps) => {
 
     return (
         <div className='productCard' onClick={handleCardClick}>
-            {isModalOpen && <CartPopup handleClose={handleCloseModal} title={product?.title}/>}
+            {isModalOpen && <CartPopup handleClose={handleCloseModal} title={product?.title} />}
+            {isAddedModalOpen && <AddedIntoAccountPopUp handleClose={() => {setIsAddedModalOpen(false)}}/>}
             <img  onClick={handleCardClick} className='productCard-coverImage' src={product?.coverImage?.data?.attributes?.url?? product.coverImage} />
             <div  className='productCard-content'>
                 <div className='productCard-content-header'  onClick={handleCardClick}>
