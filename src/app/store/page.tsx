@@ -29,7 +29,6 @@ const Store = () => {
   useEffect(() => {
       setIsLoading(true);
       Promise.all([productApi.getAllLectures(), productApi.getAllEbooks(), productApi.getAllWebinars()]).then((res) => {
-        console.log(res);
         setLectures(res[0]);
         setEbooks(res[1]);
         setWebinars(res[2]);

@@ -114,13 +114,7 @@ const ProductCard = (props:IProps) => {
                         <p>{product.description}</p>
                     </div>) }
                 </div>
-            </div>
-            { (product as IWebinar)?.event_dates?.data?.length > 0 &&  <div className='productCard-dateSelector' onClick={(e) => {
-                e.stopPropagation();
-            }}>
-                <Dropdown value={selectedCardDate?.label} onChange={handleDropDownChange} className='productCard-dateSelector-dropdown'  placeholder="Wybierz termin" options={availableDates}/>
-            </div> } 
-           
+            </div>           
             <div className='productCard-footer' >                
                { isSellingMode && <div className='product-footer-section'>
                 { product.redeemedPrice ? (

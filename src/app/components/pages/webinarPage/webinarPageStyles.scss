@@ -120,11 +120,20 @@
             }
 
             &-action {
-                width: 165px;
-                margin: 0 auto;
+                width: 100%;
+                margin: 20px auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 &-price {
+                    margin-top: 20px;
+                    margin: 20px auto;
+                    width: 100%;
                     color: #7d7d7d !important;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: space-between;
 
                     .main-price {
                         font-size: 24px;
@@ -190,3 +199,27 @@
         
     }
 }
+
+.calendlyButton {
+    cursor: pointer;
+    background-color: #9a4580;
+    border: 0;
+    color: #fff;
+    border-radius: 20px;
+    font-weight: 600;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    margin: 0 10px;
+    font-size: 20px;
+    animation: 0.9s ease-in-out 0s infinite alternate animating-multiple-properties;
+}
+
+@keyframes animating-multiple-properties {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.03);
+    }
+  }

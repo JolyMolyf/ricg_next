@@ -21,14 +21,8 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            const product = action.payload;
             const currentState = current(state);
-            let foundIndex:number;
-            if ( product.type === ProductTypes.webinar ) {
-                foundIndex = currentState.products.findIndex((item) => item.product.type === action.payload.type && item.product.id === action.payload.id && item.product.selectedDate.value === action.payload.selectedDate.value)
-            } else {
-                foundIndex = currentState.products.findIndex((item) => item.product.type === action.payload.type && item.product.id === action.payload.id)
-            }
+            let foundIndex:number = currentState.products.findIndex((item) => item.product.type === action.payload.type && item.product.id === action.payload.id)
 
             if ( foundIndex !== -1 ) {
                 state.isCartNotificationOpen = true;
@@ -56,12 +50,7 @@ export const cartSlice = createSlice({
                 tmpItems[foundIndex] = { ...tmpItems[foundIndex], quantity: tmpItems[foundIndex].quantity - 1 }
                 state.products = tmpItems;
              } else {   
-           
-                if ( action.payload.productType === ProductTypes.webinar ) {
-                    state.products = tmpItems.filter((item) => !(item.product.type === action.payload.productType && item.product.id === action.payload.productId && item.product.selectedDate.value === action.payload.eventDateId))
-                } else {
-                    state.products = tmpItems.filter((item) => !(item.product.type === action.payload.productType && item.product.id === action.payload.productId))
-                }
+                state.products = tmpItems.filter((item) => !(item.product.type === action.payload.productType && item.product.id === action.payload.productId))
              }
         },
         openCloseAlreadyInCartNotification: (state, action) => {

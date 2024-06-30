@@ -27,7 +27,6 @@ const HorizontalProductCard = (props: Props) => {
             <img src={(product as any)?.coverImage?.data?.attributes?.url ?? product?.coverImage }/>
             <div className='horizontalCard-product'>
                 <p className='horizontalCard-product-title'> { product?.title } </p>
-                {( product as IWebinar )?.selectedDate?.value && <p className='horizontalCard-product-date'> { ( (product as IWebinar)?.selectedDate?.label ) } </p>}
                 <p className='horizontalCard-product-description'> { product?.description } </p>
             </div>
             <div className='horizontalCard-actions'>

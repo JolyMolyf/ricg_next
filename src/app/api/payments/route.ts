@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 return { quantity: item.quantity, product};
             }
             case ProductTypes.webinar: {
-                const product = await productApi.getWebinarByEventDateId(item.product?.selectedDate?.value);
+                const product = await productApi.getWebinarById(item.product.id);
                 return { quantity: item.quantity, product};
             }
         }
@@ -45,7 +45,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 currency: 'PLN',
                 product_data: {
                     name: item.product.title,
-                    description: moment(item.product.date).format('MMMM Do YYYY hh:mm'),
                     metadata: {
                         id: item.product.id,
                         eventdateid: item?.product.selectedDate,

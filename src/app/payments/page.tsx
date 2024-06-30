@@ -1,15 +1,16 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './paymentStatus.scss';
 import {  useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation'
+import WebinarApi from '../utils/api/WebinarApi';
 
 const PaymentsStatus = () => {
 
     const params = useSearchParams();
     const [isSuccess, setIsSuccess] = useState<boolean>(params.get('success') === 'true');
     const navigate = useRouter();
-   
+
     return (
         <div className='paymentStatus'>
             <div className='paymentStatus-card'>
